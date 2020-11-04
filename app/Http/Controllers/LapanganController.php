@@ -1,0 +1,129 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use Illuminate\Http\Request;
+use \App\Lapangan;
+
+class LapanganController extends Controller
+{
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function index()
+    {
+        $data_lapangan = Lapangan::all();
+        // dd($data_lapangan);
+        return view('adminTempat.daftarLapangan', compact('data_lapangan'));
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create()
+    {
+        return view('adminTempat.tambahLapangan');
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store(Request $request)
+    {
+        // dd($request->all());
+
+        $request->validate([
+          'nama'=> 'required',
+          'jenis_olahraga' => 'required',
+          'jenis_lapangan' => 'required',
+          'sewa' => 'required|max:7',
+          'gambar' => 'required'
+        ]);
+
+        if($request->hasFile('gambar')){
+          $request->file('gambar')->move('images/',$request->file('gambar')->getClientOriginalName());
+        }
+
+        Lapangan::create([
+          'nama' => $request->nama,
+          'jenis_olahraga' => $request->jenis_olahraga,
+          'jenis_lapangan'=> $request->jenis_lapangan,
+          'sewa' => $request->sewa,
+          'gambar' => $request->file('gambar')->getClientOriginalName()
+        ]);
+
+        return redirect('/lapangan')->with('success','Data lapangan berhasil ditambahkan!');
+        // return $request->all();
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function show(Lapangan $Lapangan)
+    {
+        $data_lapangan = $Lapangan;
+        return view('adminTempat.detailLapangan',compact('data_lapangan'));
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function edit(Lapangan $Lapangan)
+    {
+      $data_lapangan = $Lapangan;
+      return view('adminTempat.ubahLapangan',compact('data_lapangan'));
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request, Lapangan $Lapangan)
+    {
+        $request->validate([
+          'nama'=> 'required',
+          'jenis_olahraga' => 'required',
+          'jenis_lapangan' => 'required',
+          'sewa' => 'required|max:5'
+        ]);
+
+        $data_lapangan = $Lapangan;
+        $data_lapangan->update($request->all());
+        if($request->hasFile('gambar')){
+          $request->file('gambar')->move('images/',$request->file('gambar')->getClientOriginalName());
+          $data_lapangan->gambar = $request->file('gambar')->getClientOriginalName();
+          $data_lapangan->update();
+        }
+
+        return redirect('/lapangan/'.$Lapangan->id.'/lihat')->with('success','Data lapangan berhasil di-update!');
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy(Lapangan $Lapangan)
+    {
+        $data_lapangan = $Lapangan;
+        $data_lapangan->delete($data_lapangan);
+        return redirect('/lapangan')->with('success','Data berhasil dihapus');
+    }
+}

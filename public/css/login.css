@@ -1,0 +1,24 @@
+.header-box.col-12{
+  background-color: #ffc107;
+  color: white;
+  border-radius: 1em;
+  border-bottom-left-radius:60% 20%;
+  border-bottom-right-radius:60% 20%;
+  padding-bottom: 2em !important;
+  text-align: center;
+
+}
+
+.header-box img{
+  width: 200px;
+}
+
+
+@media (min-width: 768px) {
+  .header-box.col-md-5{
+    padding: 2em !important;
+    border-radius: 0;
+    border-top-right-radius:30% 60%;
+    border-bottom-right-radius:30% 60%;
+  }
+}

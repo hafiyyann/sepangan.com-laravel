@@ -1,0 +1,158 @@
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@200;300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Titillium+Web:ital,wght@0,200;0,300;0,400;0,600;0,700;0,900;1,200;1,300;1,400;1,600;1,700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap');
+
+.navbar-brand{
+  font-family: 'Oswald', sans-serif;
+  font-weight: 500;
+  color: white!important;
+  letter-spacing: 0.1em;
+}
+
+.navbar{
+  background-color: #44dbcf !important;
+}
+
+.navbar-nav a{
+  font-family: 'Titillium Web', sans-serif;
+  font-weight: 400;
+  color: white!important;
+}
+
+.bg-1{
+  height: 100vh;
+  background-color: #ace8fa;
+}
+
+.bg-1 .home-content{
+  height: 100vh;
+}
+
+.bg-1 .home-content h1{
+  font-family: 'Oswald', sans-serif;
+  font-weight: 500;
+  color: white!important;
+  letter-spacing: 0.1em;
+}
+
+.bg-1 .home-content h2{
+  font-family: 'Titillium Web', sans-serif;
+  font-weight: 400;
+  color: white!important;
+}
+
+.sewa-section{
+  padding: 1em;
+  border-radius: 0.5em;
+  background-color: white;
+}
+
+.sewa-warp h1{
+  font-family: 'Oswald', sans-serif;
+  font-size: 1em;
+  font-weight: 400;
+  color: black!important;
+  letter-spacing: 0.1em;
+}
+
+.section-2, .section-3, .section-4{
+  padding: 5em 1em;
+  text-align: center;
+}
+
+.section-2 h1{
+  font-family: 'Oswald', sans-serif;
+  font-weight: 500;
+  color: black!important;
+  letter-spacing: 0.1em;
+  margin-bottom: 1em;
+}
+
+.section-2 h2,p{
+  font-family: 'Titillium Web', sans-serif;
+  font-weight: 400;
+  color: black!important;
+}
+
+.bg-2{
+  background-color: White;
+}
+
+.bg-3{
+  background-color: #ace8fa;
+}
+
+.section-3 h1{
+  font-family: 'Oswald', sans-serif;
+  font-weight: 500;
+  color: black!important;
+  letter-spacing: 0.1em;
+  margin-bottom: 1em;
+}
+
+.section-3 h5{
+  font-family: 'Titillium Web', sans-serif;
+  font-weight: 400;
+  color: black!important;
+}
+
+.section-4 h1{
+  font-family: 'Oswald', sans-serif;
+  font-weight: 500;
+  color: black!important;
+  letter-spacing: 0.1em;
+  margin-bottom: 1em;
+}
+
+.footer{
+  background-color: #ace8fa;
+  text-align: center;
+  padding: 2em;
+  font-family: 'Oswald', sans-serif;
+}
+
+/* result custom css */
+.field-list{
+  border-left: 0.5em solid #ace8fa;
+  margin-top: 1em;
+}
+
+.page-title{
+  font-family: 'Roboto Condensed', sans-serif;
+  font-size: 2em;
+  font-weight: 600;
+  color: black!important;
+  margin-bottom: 0.2em;
+}
+
+.place-title{
+  font-family: 'Roboto Condensed', sans-serif;
+  font-size: 3em;
+  font-weight: 700;
+  color: black!important;
+  margin-bottom: 0px;
+}
+
+.place-location{
+  font-family: 'Roboto Condensed', sans-serif;
+  font-size: 1em;
+  font-weight: 500;
+  color: black!important;
+  margin-bottom: 0px;
+}
+
+.price-label{
+  font-family: 'Roboto Condensed', sans-serif;
+  font-size: 1.2em;
+  font-weight: 500;
+  color: black!important;
+  margin-bottom: 0px;
+}
+
+.place-price{
+  font-family: 'Roboto Condensed', sans-serif;
+  font-size: 2.2em;
+  font-weight: 700;
+  color: black!important;
+  margin-bottom: 0px;
+}
