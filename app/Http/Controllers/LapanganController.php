@@ -2,8 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use Auth;
+use App\Lapangan;
+use App\tempat;
+use App\User;
+
 use Illuminate\Http\Request;
-use \App\Lapangan;
 
 class LapanganController extends Controller
 {
@@ -51,14 +55,28 @@ class LapanganController extends Controller
           $request->file('gambar')->move('images/',$request->file('gambar')->getClientOriginalName());
         }
 
-        Lapangan::create([
-          'nama' => $request->nama,
-          'jenis_olahraga' => $request->jenis_olahraga,
-          'jenis_lapangan'=> $request->jenis_lapangan,
-          'sewa' => $request->sewa,
-          'gambar' => $request->file('gambar')->getClientOriginalName()
-        ]);
 
+        $id_user = auth()->user()->id;
+        $tempat = tempat::where('id_user', $id_user)->first();
+
+        $lapangan = new Lapangan;
+        $lapangan->nama = $request->nama;
+        $lapangan->jenis_olahraga = $request->jenis_olahraga;
+        $lapangan->jenis_lapangan = $request->jenis_lapangan;
+        $lapangan->sewa = $request->sewa;
+        $lapangan->gambar = $request->file('gambar')->getClientOriginalName();
+        $lapangan->id_tempat = $tempat->id;
+        $lapangan->save();
+
+        // Lapangan::create([
+        //   'nama' => $request->nama,
+        //   'jenis_olahraga' => $request->jenis_olahraga,
+        //   'jenis_lapangan'=> $request->jenis_lapangan,
+        //   'sewa' => $request->sewa,
+        //   'gambar' => $request->file('gambar')->getClientOriginalName(),
+        //   'id_tempat' => $id_tempat->id
+        // ]);
+        //
         return redirect('/lapangan')->with('success','Data lapangan berhasil ditambahkan!');
         // return $request->all();
     }
