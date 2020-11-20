@@ -7,6 +7,7 @@ use App\Lapangan;
 use App\tempat;
 use App\User;
 
+
 use Illuminate\Http\Request;
 
 class LapanganController extends Controller
@@ -18,7 +19,8 @@ class LapanganController extends Controller
      */
     public function index()
     {
-        $data_lapangan = Lapangan::all();
+        $tempat = tempat::where('id_user',auth()->user()->id)->pluck('id');
+        $data_lapangan = Lapangan::where('tempat_id',$tempat)->get();
         // dd($data_lapangan);
         return view('adminTempat.daftarLapangan', compact('data_lapangan'));
     }
@@ -65,7 +67,7 @@ class LapanganController extends Controller
         $lapangan->jenis_lapangan = $request->jenis_lapangan;
         $lapangan->sewa = $request->sewa;
         $lapangan->gambar = $request->file('gambar')->getClientOriginalName();
-        $lapangan->id_tempat = $tempat->id;
+        $lapangan->tempat_id = $tempat->id;
         $lapangan->save();
 
         // Lapangan::create([
@@ -77,7 +79,7 @@ class LapanganController extends Controller
         //   'id_tempat' => $id_tempat->id
         // ]);
         //
-        return redirect('/lapangan')->with('success','Data lapangan berhasil ditambahkan!');
+        return redirect('/mitra/lapangan')->with('success','Data lapangan berhasil ditambahkan!');
         // return $request->all();
     }
 
@@ -90,6 +92,7 @@ class LapanganController extends Controller
     public function show(Lapangan $Lapangan)
     {
         $data_lapangan = $Lapangan;
+        // dd($data_lapangan);
         return view('adminTempat.detailLapangan',compact('data_lapangan'));
     }
 
@@ -129,7 +132,7 @@ class LapanganController extends Controller
           $data_lapangan->update();
         }
 
-        return redirect('/lapangan/'.$Lapangan->id.'/lihat')->with('success','Data lapangan berhasil di-update!');
+        return redirect('/mitra/lapangan/'.$Lapangan->id.'/lihat')->with('success','Data lapangan berhasil di-update!');
     }
 
     /**
@@ -142,6 +145,6 @@ class LapanganController extends Controller
     {
         $data_lapangan = $Lapangan;
         $data_lapangan->delete($data_lapangan);
-        return redirect('/lapangan')->with('success','Data berhasil dihapus');
+        return redirect('/mitra/lapangan')->with('success','Data berhasil dihapus');
     }
 }

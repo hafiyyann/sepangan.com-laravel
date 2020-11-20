@@ -76,16 +76,20 @@
                             </ul>
                         </li>
                         <li>
-                            <a href="{{ url('/mitra/lapangan')}}">
+                            <a href="{{ url('/admin/lapangan')}}">
                                 <i class="fas fa-chart-bar"></i>Daftar Lapangan</a>
                         </li>
                         <li>
-                            <a href="{{ url('/mitra/Orders')}}">
+                            <a href="{{ url('/admin/Orders')}}">
                                 <i class="fas fa-chart-bar"></i>Daftar Pesanan</a>
                         </li>
                         <li>
-                            <a href="table.html">
-                                <i class="fas fa-table"></i>Chat</a>
+                            <a href="{{ url('/admin/Orders')}}">
+                                <i class="fas fa-chart-bar"></i>Daftar Tempat</a>
+                        </li>
+                        <li>
+                            <a href="{{ url('/admin/Orders')}}">
+                                <i class="fas fa-chart-bar"></i>Daftar Pengguna</a>
                         </li>
                     </ul>
                 </div>
@@ -103,7 +107,7 @@
             <div class="menu-sidebar__content js-scrollbar1">
                 <nav class="navbar-sidebar">
                     <ul class="list-unstyled navbar__list">
-                        <li class="has-sub">
+                        <li class="active has-sub">
                             <a class="js-arrow" href="#">
                                 <i class="fas fa-tachometer-alt"></i>Dashboard</a>
                             <ul class="list-unstyled navbar__sub-list js-sub-list">
@@ -122,19 +126,21 @@
                             </ul>
                         </li>
                         <li>
-                            <a href="{{ url('/mitra/lapangan')}}">
+                            <a href="{{ url('/admin/lapangan')}}">
                                 <i class="fas fa-chart-bar"></i>Daftar Lapangan</a>
                         </li>
                         <li>
-                            <a href="{{ url('/mitra/Orders')}}">
+                            <a href="{{ url('/admin/Orders')}}">
                                 <i class="fas fa-chart-bar"></i>Daftar Pesanan</a>
                         </li>
                         <li>
-                            <a href="table.html">
-                                <i class="fas fa-comment-alt"></i>Chat</a>
+                            <a href="{{ url('/admin/Orders')}}">
+                                <i class="fas fa-chart-bar"></i>Daftar Tempat</a>
                         </li>
-
-
+                        <li>
+                            <a href="{{ url('/admin/Orders')}}">
+                                <i class="fas fa-chart-bar"></i>Daftar Pengguna</a>
+                        </li>
                     </ul>
                 </nav>
             </div>
@@ -303,13 +309,7 @@
 
     <!-- additional jquery here -->
     @yield('footer')
-    <script>
-      $('.navbar__list li').click(function() {
-        console.log('Clicked');
-        $('.navbar__list li.active').removeClass('active');
-        $(this).addClass('active');
-      });
-    </script>
+
 </body>
 
 </html>

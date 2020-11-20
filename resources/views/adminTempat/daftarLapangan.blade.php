@@ -14,7 +14,7 @@
             <h1>Daftar Lapangan</h1>
           </div>
           <div class="col-sm-12 col-12 mb-2">
-            <a href="{{ url('/lapangan/tambah') }}" class="btn btn-primary">+ Tambah Lapangan</a>
+            <a href="{{ url('/mitra/lapangan/tambah') }}" class="btn btn-primary">+ Tambah Lapangan</a>
           </div>
           <!-- @if (session('success'))
           <div class="col-sm-12 col-12">
@@ -42,7 +42,7 @@
                     <tr>
                         <td class="align-middle text-center">{{ $lapangan-> id }}</td>
                         <td class="align-middle">{{ $lapangan-> nama }}</td>
-                        <td class="text-center"> <a href="/lapangan/{{$lapangan->id}}/lihat" class="btn btn-primary">Lihat</a> </td>
+                        <td class="text-center"> <a href="/mitra/lapangan/{{$lapangan->id}}/lihat" class="btn btn-primary">Lihat</a> </td>
                     </tr>
                   @endforeach
                 </tbody>

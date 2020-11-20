@@ -37,8 +37,8 @@
     </div>
 
     <div class="row no-gutters mt-3 justify-content-end">
-      <a href="/lapangan" class="btn btn-secondary mr-auto">Kembali</a>
-      <a href="/lapangan/{{$data_lapangan->id}}/ubah" class="btn btn-primary mr-1">Ubah</a>
+      <a href="/mitra/lapangan" class="btn btn-secondary mr-auto">Kembali</a>
+      <a href="/mitra/lapangan/{{$data_lapangan->id}}/ubah" class="btn btn-primary mr-1">Ubah</a>
       <a href="#" class="btn btn-danger delete-btn" lapangan-id="{{ $data_lapangan->id }}">Hapus</a>
     </div>
   </div>
@@ -57,7 +57,7 @@
       })
       .then((willDelete) => {
         if (willDelete) {
-          window.location = "/lapangan/"+lapangan_id+"/hapus";
+          window.location = "/mitra/lapangan/"+lapangan_id+"/hapus";
         }
       });
     });

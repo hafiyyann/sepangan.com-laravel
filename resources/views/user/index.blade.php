@@ -10,31 +10,44 @@
 
 @section('content')
   <!-- navigation -->
-  <nav class="navbar navbar-expand-lg">
+  <nav class="navbar navbar-expand-lg bg-warning">
     <div class="container">
-      <a class="navbar-brand" href="#">
+      <a class="navbar-brand text-white" href="#">
         <img src="{{ url('/images/login_asset.png') }}" height="30" alt="">
-        SEPANGAN.CO.ID
+        <span style="font-weight: 700">SEPANGAN.CO.ID</span>
       </a>
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav ml-auto navbar-right">
           <li class="nav-item">
-            <a class="nav-link" href="#">Home</a>
+            <a class="nav-link text-white" href="#">Home</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">Artikel</a>
+            <a class="nav-link text-white" href="#">Artikel</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">Tentang Kami</a>
+            <a class="nav-link text-white" href="#">Tentang Kami</a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Masuk</a>
-          </li>
+          @if (Auth::check())
+            <li class="nav-item dropdown">
+             <a class="nav-link dropdown-toggle text-white" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+               {{ Illuminate\Support\Str::words(auth()->user()->name, 1) }}
+             </a>
+             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+               <a class="dropdown-item" href="/profil">Akun Saya</a>
+               <a class="dropdown-item" href="/riwayat">Riwayat</a>
+               <div class="dropdown-divider"></div>
+               <a class="dropdown-item" href="/logout">Logout</a>
+             </div>
+            </li>
+          @else
+            <li class="nav-item">
+              <a class="nav-link text-white" href="/login">Masuk</a>
+            </li>
+          @endif
         </ul>
       </div>
     </div>
   </nav>
-
   <!-- Main Content -->
   <div class="bg-1">
     <div class="container">
@@ -50,8 +63,8 @@
               @csrf
               <div class="row">
                 <div class="form-group col-md-12">
-                  <label for="jenis_lapangan">Jenis Lapangan</label>
-                  <select name="jenis_lapangan" class="form-control @error('jenis_lapangan') is-invalid @enderror" id="jenis_lapangan">
+                  <label for="jenis_olahraga">Jenis Lapangan</label>
+                  <select name="jenis_olahraga" class="form-control @error('jenis_olahraga') is-invalid @enderror" id="jenis_olahraga">
                     <option hidden selected value>Jenis Lapangan</option>
                     <option>Badminton</option>
                     <option>Futsal</option>
@@ -61,10 +74,16 @@
                     <option>Volley</option>
                     <option>Tennis Meja</option>
                   </select>
+                  @error('jenis_olahraga')
+                    <div class="invalid-feedback">{{ $message }}</div>
+                  @enderror
                 </div>
                 <div class="form-group col-md-12">
                   <label for="input_tanggal">Tanggal</label>
-                  <input class="form-control" type="date" name="tanggal">
+                  <input class="form-control @error('tanggal') is-invalid @enderror" type="date" name="tanggal">
+                  @error('tanggal')
+                    <div class="invalid-feedback">{{ $message }}</div>
+                  @enderror
                 </div>
                 <div class="form-group col-md-12">
                   <label for="start">Jam Mulai</label>
@@ -86,6 +105,9 @@
                     <option>22:00</option>
                     <option>23:00</option>
                   </select>
+                  @error('start')
+                    <div class="invalid-feedback">{{ $message }}</div>
+                  @enderror
                 </div>
                 <div class="form-group col-md-12">
                   <label for="end">Jam Selesai</label>
@@ -107,6 +129,9 @@
                     <option>22:00</option>
                     <option>23:00</option>
                   </select>
+                  @error('end')
+                    <div class="invalid-feedback">{{ $message }}</div>
+                  @enderror
                 </div>
               </div>
               <button type="submit" class="btn btn-primary col-md-12">Cari</button>

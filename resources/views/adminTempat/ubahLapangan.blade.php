@@ -18,7 +18,7 @@
       <img src="{{ asset('images/'.$data_lapangan->gambar) }}"  style="height: 300px;" class="img-thumbnail">
     </div>
     <!-- Form -->
-    <form class="bg-white p-4 rounded clearfix shadow-sm" method="post" action="/lapangan/{{$data_lapangan->id}}/update" enctype="multipart/form-data">
+    <form class="bg-white p-4 rounded clearfix shadow-sm" method="post" action="/mitra/lapangan/{{$data_lapangan->id}}/update" enctype="multipart/form-data">
       @csrf
       <div class="form-group">
         <label for="input_nama">Nama Lapangan</label>
@@ -63,7 +63,7 @@
         <label for="gambar_lapangan">Gambar Lapangan</label>
         <input type="file" class="form-control-file" name="gambar" id="gambar">
       </div>
-      <a class="btn btn-danger" href="/lapangan/{{$data_lapangan->id}}/lihat">Batal</a>
+      <a class="btn btn-danger" href="/mitra/lapangan/{{$data_lapangan->id}}/lihat">Batal</a>
       <button type="submit" name="button" class="btn btn-primary float-right">Simpan</button>
     </form>
   </div>
