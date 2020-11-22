@@ -19,7 +19,7 @@ class LapanganController extends Controller
      */
     public function index()
     {
-        $tempat = tempat::where('id_user',auth()->user()->id)->pluck('id');
+        $tempat = tempat::where('user_id',auth()->user()->id)->pluck('id');
         $data_lapangan = Lapangan::where('tempat_id',$tempat)->get();
         // dd($data_lapangan);
         return view('adminTempat.daftarLapangan', compact('data_lapangan'));
@@ -58,8 +58,8 @@ class LapanganController extends Controller
         }
 
 
-        $id_user = auth()->user()->id;
-        $tempat = tempat::where('id_user', $id_user)->first();
+        $user_id = auth()->user()->id;
+        $tempat = tempat::where('user_id', $user_id)->first();
 
         $lapangan = new Lapangan;
         $lapangan->nama = $request->nama;

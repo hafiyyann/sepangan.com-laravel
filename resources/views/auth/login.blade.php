@@ -19,11 +19,6 @@
           <div class="login-box col-md-7 col-12 d-flex align-items-center" style="padding: 2em;">
             <form class="col-md-12" method="POST" action="/login">
               @csrf
-              <!-- @if (session('fail'))
-                  <div class="alert alert-danger">
-                      {{ session('fail') }}
-                  </div>
-              @endif -->
               <h1>LOGIN</h1>
               <div class="form-group">
                 <label for="email">Email address</label>

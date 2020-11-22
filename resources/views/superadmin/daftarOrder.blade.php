@@ -50,7 +50,7 @@
                 <tbody>
                   @foreach($orders as $order)
                     @foreach($fields as $field)
-                      @if($order->id_lapangan == $field->id)
+                      @if($order->lapangan_id == $field->id)
                         <tr>
                             <td class="align-middle text-center">{{ $order->id }}</td>
                             <td class="align-middle text-center">{{ $order->tanggalPemesanan }}</td>

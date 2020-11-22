@@ -13,13 +13,6 @@
           <div class="col-sm-12 col-12 mb-2">
             <h1>Daftar Order</h1>
           </div>
-          <!-- @if (session('success'))
-          <div class="col-sm-12 col-12">
-            <div class="alert alert-success mb-0 shadow" role="alert">
-              {{ session('success') }}
-            </div>
-          </div>
-          @endif -->
         </div>
       </div>
     </div>
@@ -41,7 +34,7 @@
                 <tbody>
                   @foreach($orders as $order)
                     @foreach($fields as $field)
-                      @if($order->id_lapangan == $field->id)
+                      @if($order->lapangan_id == $field->id)
                         <tr>
                             <td class="align-middle text-center">{{ $order->id }}</td>
                             <td class="align-middle text-center">{{ $order->tanggalPemesanan }}</td>
@@ -49,6 +42,7 @@
                             <td class="align-middle text-center">{{ $order->end}}</td>
                             <td class="align-middle text-center">{{ $field->nama }}</td>
                             <td class="align-middle text-center text-white">
+                              @if( $order->status == 'dibayar' )<span class="bg-warning p-2" style="border-radius: 1.5em; font-size: 0.7em;">Dibayar</span>@endif
                               @if( $order->status == 'dikonfrimasi' )<span class="bg-warning p-2" style="border-radius: 1.5em; font-size: 0.7em;">Dikonfirmasi</span>@endif
                               @if( $order->status == 'ditolak' )<span class="bg-warning p-2" style="border-radius: 1.5em; font-size: 0.7em;">Ditolak</span>@endif
                               @if( $order->status == 'selesai' )<span class="bg-success p-2" style="border-radius: 1.5em; font-size: 0.7em;">Selesai</span>@endif

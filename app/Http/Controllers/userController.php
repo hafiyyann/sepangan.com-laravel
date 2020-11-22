@@ -46,7 +46,7 @@ class userController extends Controller
       // dd($request->all());
 
       //looking for orders
-      $booked_orders = order::whereRaw('orders.tanggalPemesanan = "'.$date.'" and ((orders.start <= "'.$start_time.'" and orders.end >= "'.$end_time.'") or (orders.start < "'.$start_time.'" and orders.end >= "'.$end_time.'") or ("'.$start_time.'" <= orders.start AND "'.$end_time.'" >= orders.end) or (orders.start BETWEEN "'.$start_time.'" and "'.$end_time.'") or (orders.end BETWEEN "'.$start_time.'" and "'.$end_time.'"))')->where('status','!=','expired')->pluck('id_lapangan');
+      $booked_orders = order::whereRaw('orders.tanggalPemesanan = "'.$date.'" and ((orders.start <= "'.$start_time.'" and orders.end >= "'.$end_time.'") or (orders.start < "'.$start_time.'" and orders.end >= "'.$end_time.'") or ("'.$start_time.'" <= orders.start AND "'.$end_time.'" >= orders.end) or (orders.start BETWEEN "'.$start_time.'" and "'.$end_time.'") or (orders.end BETWEEN "'.$start_time.'" and "'.$end_time.'"))')->where('status','!=','expired')->pluck('lapangan_id');
 
       //looking for available place id
       $available_place_id = Lapangan::whereNotIn('id',$booked_orders)->pluck('tempat_id');
@@ -84,7 +84,7 @@ class userController extends Controller
 
     public function payment(Request $request, Lapangan $Lapangan){
 
-      if (order::where('tanggalPemesanan',Session::get('booking_date'))->where('start',Session::get('start_time'))->where('end',Session::get('end_time'))->where('id_lapangan',$Lapangan->id)->exists()) {
+      if (order::where('tanggalPemesanan',Session::get('booking_date'))->where('start',Session::get('start_time'))->where('end',Session::get('end_time'))->where('lapangan_id',$Lapangan->id)->exists()) {
         return back()->withInput()->with('fail','Anda sudah melakukan pemesanan atau orang lain terlebih dahulu melakukan order!');
       } else {
         // create new payment
@@ -100,8 +100,8 @@ class userController extends Controller
         $order->tanggalPemesanan = Session::get('booking_date');
         $order->start = Session::get('start_time');
         $order->end = Session::get('end_time');
-        $order->id_lapangan = $Lapangan->id;
-        $order->id_user = auth()->user()->id;
+        $order->lapangan_id = $Lapangan->id;
+        $order->user_id = auth()->user()->id;
         $order->status = 'dibuat';
         $order->catatan = $request->catatan;
         $order->payments_id = $payment->id;
@@ -118,12 +118,12 @@ class userController extends Controller
     }
 
     public function history(){
-      $orders = order::where('id_user',auth()->user()->id)->get();
-      $booked_field = order::where('id_user',auth()->user()->id)->pluck('id_lapangan');
+      $orders = order::where('user_id',auth()->user()->id)->get();
+      $booked_field = order::where('user_id',auth()->user()->id)->pluck('lapangan_id');
       $fields = Lapangan::whereIn('id',$booked_field)->get();
       $place_id = Lapangan::whereIn('id',$booked_field)->pluck('tempat_id');
       $tempat = tempat::whereIn('id',$place_id)->get();
-      $payments_id = order::where('id_user',auth()->user()->id)->pluck('payments_id');
+      $payments_id = order::where('user_id',auth()->user()->id)->pluck('payments_id');
       $payments = payment::whereIn('id',$payments_id)->get();
 
       // dd($tempat);
@@ -131,7 +131,7 @@ class userController extends Controller
     }
 
     public function orderDetail(order $order){
-      $field = Lapangan::where('id',$order->id_lapangan)->first();
+      $field = Lapangan::where('id',$order->lapangan_id)->first();
       $tempat = tempat::where('id',$field->tempat_id)->first();
       $payment = payment::where('id',$order->payments_id)->first();
 

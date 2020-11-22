@@ -17,12 +17,12 @@ class CreateTempatTable extends Migration
             $table->bigIncrements('id');
             $table->string('namaTempat');
             $table->string('alamat');
-            $table->unsignedBigInteger('id_user');
+            $table->unsignedBigInteger('user_id');
             $table->timestamps();
         });
 
         Schema::table('tempat', function(Blueprint $table) {
-            $table->foreign('id_user')->references('id')->on('users');
+            $table->foreign('user_id')->references('id')->on('users');
         });
     }
 

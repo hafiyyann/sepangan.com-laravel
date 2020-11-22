@@ -16,13 +16,6 @@
           <div class="col-sm-12 col-12 mb-2">
             <a href="{{ url('/mitra/lapangan/tambah') }}" class="btn btn-primary">+ Tambah Lapangan</a>
           </div>
-          <!-- @if (session('success'))
-          <div class="col-sm-12 col-12">
-            <div class="alert alert-success mb-0 shadow" role="alert">
-              {{ session('success') }}
-            </div>
-          </div>
-          @endif -->
         </div>
       </div>
     </div>

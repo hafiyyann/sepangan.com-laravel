@@ -14,7 +14,7 @@
       </div>
     </div>
     <!-- Form -->
-    <form class="bg-white p-4 rounded clearfix shadow-sm" method="post" action="/lapangan" enctype="multipart/form-data">
+    <form class="bg-white p-4 rounded clearfix shadow-sm" method="post" action="/mitra/lapangan" enctype="multipart/form-data">
       @csrf
       <div class="form-group">
         <label for="input_nama">Nama Lapangan</label>

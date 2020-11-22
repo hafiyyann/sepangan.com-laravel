@@ -20,11 +20,11 @@ class OrderController extends Controller
     public function index_mitra()
     {
         //
-        $tempat_id = tempat::where('id_user',auth()->user()->id)->pluck('id')->first();
+        $tempat_id = tempat::where('user_id',auth()->user()->id)->pluck('id')->first();
         $Lapangan_id = Lapangan::where('tempat_id',$tempat_id)->pluck('id');
 
         $fields = Lapangan::where('tempat_id',$tempat_id)->get();
-        $orders = order::whereIn('id_lapangan',$Lapangan_id)->where('status','dibayar')->orWhere('status','dikonfrimasi')->orWhere('status','selesai')->get();
+        $orders = order::whereIn('lapangan_id',$Lapangan_id)->where('status','dibayar')->orWhere('status','dikonfrimasi')->orWhere('status','selesai')->get();
         // return($Lapangan);
         return view('adminTempat.daftarOrder', compact('fields','orders'));
     }
@@ -79,8 +79,8 @@ class OrderController extends Controller
      */
     public function show_order_detail_mitra(order $order)
     {
-        $data_pemesan = User::where('id',$order->id_user)->first();
-        $data_lapangan = Lapangan::where('id',$order->id_lapangan)->first();
+        $data_pemesan = User::where('id',$order->user_id)->first();
+        $data_lapangan = Lapangan::where('id',$order->lapangan_id)->first();
         $data_pembayaran = payment::where('id',$order->payments_id)->first();
 
         return view('adminTempat.detailOrder')->with(compact('order','data_pemesan','data_lapangan','data_pembayaran'));
@@ -88,8 +88,8 @@ class OrderController extends Controller
 
     public function show_order_detail_admin(order $order)
     {
-        $data_pemesan = User::where('id',$order->id_user)->first();
-        $data_lapangan = Lapangan::where('id',$order->id_lapangan)->first();
+        $data_pemesan = User::where('id',$order->user_id)->first();
+        $data_lapangan = Lapangan::where('id',$order->lapangan_id)->first();
         $data_pembayaran = payment::where('id',$order->payments_id)->first();
 
         return view('superadmin.detailOrder')->with(compact('order','data_pemesan','data_lapangan','data_pembayaran'));

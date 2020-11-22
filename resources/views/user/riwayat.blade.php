@@ -56,7 +56,7 @@
           @foreach($fields as $field)
             @foreach($tempat as $data_tempat)
               @foreach($payments as $payment)
-                @if($field->id == $order->id_lapangan && $data_tempat->id == $field->tempat_id && $order->payments_id == $payment->id)
+                @if($field->id == $order->lapangan_id && $data_tempat->id == $field->tempat_id && $order->payments_id == $payment->id)
                   <div class="row no-gutters mt-5">
                     <div class="col-md-12 bg-white shadow" style="border-radius: 0 0 10px 10px">
                       <div class="row no-gutters bg-warning px-5 py-3 text-white align-items-center" style="border-radius: 10px 10px 0 0">

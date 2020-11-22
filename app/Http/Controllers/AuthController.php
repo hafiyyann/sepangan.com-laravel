@@ -119,7 +119,7 @@ class AuthController extends Controller
       tempat::create([
         'namaTempat'  => $request['namaTempat'],
         'alamat'      => $request['alamat'],
-        'id_user'     => $user->id
+        'user_id'     => $user->id
       ]);
 
       if($request->email != null){

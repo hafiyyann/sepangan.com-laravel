@@ -88,7 +88,7 @@
             <div class="col-5 border-bottom mt-2"></div>
           </div>
           <div class="row justify-content-center no-gutters mt-2">
-            <a class="btn btn-warning text-white" href="#">Lihat riwayat</a>
+            <a class="btn btn-warning text-white" href="{{ url('/riwayat')}}">Lihat riwayat</a>
           </div>
         </div>
       </div>

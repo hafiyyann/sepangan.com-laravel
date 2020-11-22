@@ -20,12 +20,12 @@ class CreateLapanganTable extends Migration
             $table->string('jenis_lapangan');
             $table->decimal('sewa',7,2);
             $table->string('gambar');
-            $table->unsignedBigInteger('id_tempat');
+            $table->unsignedBigInteger('tempat_id');
             $table->timestamps();
         });
 
         Schema::table('lapangan', function(Blueprint $table) {
-            $table->foreign('id_tempat')->references('id')->on('tempat');
+            $table->foreign('tempat_id')->references('id')->on('tempat');
         });
     }
 

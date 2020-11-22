@@ -11,7 +11,7 @@ class Lapangan extends Model
     protected $table = 'lapangan';
 
     public function tempat(){
-      return $this->belongsTo(tempat::class, 'id_tempat');
+      return $this->belongsTo(tempat::class, 'tempat_id');
     }
 
     public function order(){
