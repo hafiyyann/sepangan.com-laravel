@@ -25,6 +25,13 @@ class LapanganController extends Controller
         return view('adminTempat.daftarLapangan', compact('data_lapangan'));
     }
 
+    public function index_admin(){
+      $data_tempat = tempat::all();
+      $data_lapangan = Lapangan::all();
+
+      return view('superadmin.daftarLapangan', compact('data_lapangan','data_tempat'));
+    }
+
     /**
      * Show the form for creating a new resource.
      *
@@ -94,6 +101,13 @@ class LapanganController extends Controller
         $data_lapangan = $Lapangan;
         // dd($data_lapangan);
         return view('adminTempat.detailLapangan',compact('data_lapangan'));
+    }
+
+    public function show_detail_admin(Lapangan $Lapangan){
+        $data_lapangan = $Lapangan;
+        $data_tempat = tempat::where('id',$data_lapangan->tempat_id)->first();
+
+        return view('superadmin.detailLapangan', compact('data_lapangan', 'data_tempat'));
     }
 
     /**

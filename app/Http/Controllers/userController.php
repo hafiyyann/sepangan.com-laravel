@@ -7,6 +7,7 @@ use \App\order;
 use \App\Lapangan;
 use \App\User;
 use \App\payment;
+use \App\Article;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
@@ -16,7 +17,17 @@ use Carbon\Carbon;
 class userController extends Controller
 {
     public function index(){
-      return view('user.index');
+      $Articles = Article::all()->take(8);
+      return view('user.index',compact('Articles'));
+    }
+
+    public function show_article_detail(Article $Article){
+      return view('user.detailArtikel', compact('Article'));
+    }
+
+    public function show_article_list(){
+      $Articles = Article::all();
+      return view('user.daftarArtikel', compact('Articles'));
     }
 
     public function searchResult(Request $request){
@@ -151,6 +162,20 @@ class userController extends Controller
       }
 
       return('Request doesnt have file');
+    }
+
+    public function order_complete(order $order){
+      $data_order = order::where('id',$order->id)->first();
+      $data_order->status = 'selesai';
+      $data_order->update();
+
+      $id_tempat = lapangan::where('id',$data_order->lapangan_id)->value('id');
+      $data_tempat = tempat::where('id',$id_tempat)->first();
+      $payment_data = payment::where('id',$data_order->payments_id)->first();
+      $data_tempat->saldo = ($data_tempat->saldo) + ($payment_data->nominal*99/100);
+      $data_tempat->update();
+
+      return redirect('/riwayat');
     }
 
 }

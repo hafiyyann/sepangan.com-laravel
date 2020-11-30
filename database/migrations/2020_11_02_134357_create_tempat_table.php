@@ -17,6 +17,7 @@ class CreateTempatTable extends Migration
             $table->bigIncrements('id');
             $table->string('namaTempat');
             $table->string('alamat');
+            $table->decimal('saldo',12,0)->default(0);
             $table->unsignedBigInteger('user_id');
             $table->timestamps();
         });

@@ -43,7 +43,7 @@
             <div class="header-mobile__bar">
                 <div class="container-fluid">
                     <div class="header-mobile-inner">
-                        <a class="logo" href="index.html">
+                        <a class="logo">
                             <img src="{{ url('images/icon/logo.png') }}" alt="CoolAdmin" />
                         </a>
                         <button class="hamburger hamburger--slider" type="button">
@@ -86,6 +86,18 @@
                         <li>
                             <a href="table.html">
                                 <i class="fas fa-table"></i>Chat</a>
+                        </li>
+                        <li class="has-sub">
+                            <a class="js-arrow" href="/mitra/withdrawal">
+                                <i class="fas fa-receipt"></i>Pencairan</a>
+                            <ul class="navbar-mobile-sub__list list-unstyled js-sub-list">
+                                <li>
+                                    <a href="/mitra/withdrawal/form">Ajukan Pencairan</a>
+                                </li>
+                                <li>
+                                    <a href="/mitra/withdrawal/history">Riwayat Pencairan</a>
+                                </li>
+                            </ul>
                         </li>
                     </ul>
                 </div>
@@ -133,8 +145,10 @@
                             <a href="table.html">
                                 <i class="fas fa-comment-alt"></i>Chat</a>
                         </li>
-
-
+                        <li>
+                            <a href="{{ url('/mitra/withdrawal') }}">
+                                <i class="fas fa-chart-bar"></i>Pencairan</a>
+                        </li>
                     </ul>
                 </nav>
             </div>
@@ -253,7 +267,7 @@
                                             </div>
                                             <div class="account-dropdown__body">
                                                 <div class="account-dropdown__item">
-                                                    <a href="#">
+                                                    <a href="/mitra/profil">
                                                         <i class="zmdi zmdi-account"></i>Edit Profil</a>
                                                 </div>
                                             </div>

@@ -76,7 +76,7 @@
                             </ul>
                         </li>
                         <li>
-                            <a href="{{ url('/admin/lapangan')}}">
+                            <a href="{{ url('/admin/Lapangan')}}">
                                 <i class="fas fa-chart-bar"></i>Daftar Lapangan</a>
                         </li>
                         <li>
@@ -84,12 +84,20 @@
                                 <i class="fas fa-chart-bar"></i>Daftar Pesanan</a>
                         </li>
                         <li>
-                            <a href="{{ url('/admin/Orders')}}">
+                            <a href="{{ url('/admin/tempat')}}">
                                 <i class="fas fa-chart-bar"></i>Daftar Tempat</a>
                         </li>
                         <li>
-                            <a href="{{ url('/admin/Orders')}}">
+                            <a href="{{ url('/admin/pengguna')}}">
                                 <i class="fas fa-chart-bar"></i>Daftar Pengguna</a>
+                        </li>
+                        <li>
+                            <a href="{{ url('/admin/Artikel')}}">
+                                <i class="fas fa-chart-bar"></i>Daftar Artikel</a>
+                        </li>
+                        <li>
+                            <a href="{{ url('/admin/withdrawal')}}">
+                                <i class="fas fa-chart-bar"></i>Pencairan</a>
                         </li>
                     </ul>
                 </div>
@@ -126,7 +134,7 @@
                             </ul>
                         </li>
                         <li>
-                            <a href="{{ url('/admin/lapangan')}}">
+                            <a href="{{ url('/admin/Lapangan')}}">
                                 <i class="fas fa-chart-bar"></i>Daftar Lapangan</a>
                         </li>
                         <li>
@@ -134,12 +142,20 @@
                                 <i class="fas fa-chart-bar"></i>Daftar Pesanan</a>
                         </li>
                         <li>
-                            <a href="{{ url('/admin/Orders')}}">
+                            <a href="{{ url('/admin/Tempat')}}">
                                 <i class="fas fa-chart-bar"></i>Daftar Tempat</a>
                         </li>
                         <li>
-                            <a href="{{ url('/admin/Orders')}}">
+                            <a href="{{ url('/admin/Pengguna')}}">
                                 <i class="fas fa-chart-bar"></i>Daftar Pengguna</a>
+                        </li>
+                        <li>
+                            <a href="{{ url('/admin/Artikel')}}">
+                                <i class="fas fa-chart-bar"></i>Daftar Artikel</a>
+                        </li>
+                        <li>
+                            <a href="{{ url('/admin/withdrawal')}}">
+                                <i class="fas fa-chart-bar"></i>Pencairan</a>
                         </li>
                     </ul>
                 </nav>
@@ -259,7 +275,7 @@
                                             </div>
                                             <div class="account-dropdown__body">
                                                 <div class="account-dropdown__item">
-                                                    <a href="#">
+                                                    <a href="/admin/profil">
                                                         <i class="zmdi zmdi-account"></i>Edit Profil</a>
                                                 </div>
                                             </div>

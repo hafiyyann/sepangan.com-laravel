@@ -283,6 +283,9 @@
         </div>
       </div>
       <a href="/riwayat" class="btn btn-warning ml-3 mt-3 text-white">Kembali</a>
+      @if(\Carbon\Carbon::now()->format('Y-m-d') == $order->tanggalPemesanan && \Carbon\Carbon::now()->setTimezone('Asia/Jakarta')->format('H:i:s') >= $order->end && $order->status != 'selesai')
+        <a href="/riwayat/{{$order->id}}/selesai" class="btn btn-success ml-auto mt-3 mr-3">Selesai</a>
+      @endif
     </div>
   </div>
 @endsection

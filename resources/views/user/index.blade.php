@@ -5,6 +5,31 @@
   <title>Home</title>
   <link rel="stylesheet" href="{{ url('/css/user/style.css')}}">
   <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
+  <link rel="stylesheet" href="{{ url('/vendor/owlcarousel/assets/owl.carousel.min.css')}}">
+  <link rel="stylesheet" href="{{ url('/vendor/owlcarousel/assets/owl.theme.default.min.css')}}">
+  <style>
+    .owl-prev {
+      left: -30px;
+    }
+
+    .owl-next {
+      right: -30px;
+    }
+
+    .owl-prev, .owl-next{
+      position: absolute;
+      top: 30%;
+    }
+
+    .owl-prev span, .owl-next span{
+      font-size: 60px;
+      color: #787878;
+    }
+
+    .owl-theme .owl-nav [class*="owl-"]:hover {
+      background-color: transparent;
+    }
+  </style>
 @endsection
 
 
@@ -19,10 +44,10 @@
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav ml-auto navbar-right">
           <li class="nav-item">
-            <a class="nav-link text-white" href="#">Home</a>
+            <a class="nav-link text-white" href="{{ url('/') }}">Home</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link text-white" href="#">Artikel</a>
+            <a class="nav-link text-white" href="{{ url('/artikel') }}">Artikel</a>
           </li>
           <li class="nav-item">
             <a class="nav-link text-white" href="#">Tentang Kami</a>
@@ -215,6 +240,26 @@
     </div>
   </div>
   <div class="bg-2">
+    <div class="container px-3 py-5">
+      <!-- Owl Carousel -->
+      <h1 class="text-center">Artikel Terbaru</h1>
+      <div class="owl-carousel owl-theme">
+        @foreach($Articles as $article)
+          <div class="ml-2 mr-2">
+            <div class="card">
+              <img class="card-img-top" src="/images/TENNIS.jpeg" alt="Card image cap">
+              <div class="card-body">
+                <h5 class="card-title">{{$article->title}}</h5>
+                <p class="card-text">{!! Str_limit($article->content, 100) !!}</p>
+                <a href="/artikel/{{$article->id}}/lihat" class="btn btn-primary text-center">Go somewhere</a>
+              </div>
+            </div>
+          </div>
+        @endforeach
+      </div>
+    </div>
+  </div>
+  <div class="bg-3">
     <div class="container">
       <div class="row align-items-center section-4 text-center">
           <h1 class="col-md-12">Langkah Pemesanan</h1>
@@ -240,4 +285,19 @@
   <div class="footer">
     Sepangan.co.id 2020
   </div>
+@endsection
+
+@section('footer')
+  <script src="{{ url('/vendor/owlcarousel/owl.carousel.min.js')}}"></script>
+  <script>
+      $(document).ready(function(){
+        $(".owl-carousel").owlCarousel({
+          autoplay: true,
+          autoplayHoverPause: true,
+          items: 4,
+          nav: true,
+          dots: true,
+        });
+      });
+  </script>
 @endsection
