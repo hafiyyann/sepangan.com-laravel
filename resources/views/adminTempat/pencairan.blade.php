@@ -59,5 +59,14 @@
       toastr.options.progressBar = true;
       toastr.success("{{ Session::get('success') }}", "Sukses", {timeOut: 5000});
     @endif
+
+    @if(Session::has('fail'))
+      toastr.options.progressBar = true;
+      toastr.error("{{ Session::get('fail') }}", "Gagal", {timeOut: 5000});
+    @endif
+
+    $(document).ready(function() {
+      $('.li-pencairan').addClass('active');
+    });
   </script>
 @endsection

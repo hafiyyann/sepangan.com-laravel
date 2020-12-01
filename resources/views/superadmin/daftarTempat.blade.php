@@ -58,5 +58,9 @@
       toastr.options.progressBar = true;
       toastr.success("{{ Session::get('success') }}", "Sukses", {timeOut: 5000});
     @endif
+
+    $(document).ready(function() {
+      $('.li-tempat').addClass('active');
+    });
   </script>
 @endsection

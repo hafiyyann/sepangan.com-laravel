@@ -169,7 +169,7 @@ class userController extends Controller
       $data_order->status = 'selesai';
       $data_order->update();
 
-      $id_tempat = lapangan::where('id',$data_order->lapangan_id)->value('id');
+      $id_tempat = lapangan::where('id',$data_order->lapangan_id)->value('tempat_id');
       $data_tempat = tempat::where('id',$id_tempat)->first();
       $payment_data = payment::where('id',$data_order->payments_id)->first();
       $data_tempat->saldo = ($data_tempat->saldo) + ($payment_data->nominal*99/100);

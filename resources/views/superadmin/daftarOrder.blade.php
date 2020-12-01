@@ -85,32 +85,9 @@
       toastr.options.progressBar = true;
       toastr.success("{{ Session::get('success') }}", "Sukses", {timeOut: 5000});
     @endif
-  </script>
-  <!-- <script>
-    $(document).ready(function(){
 
-     fetch_data();
-
-     function fetch_data(order_status_input = '')
-     {
-      $('#order_table').DataTable({
-       processing: true,
-       serverSide: true,
-       ajax: {
-        url:"{{ url('status_filtering') }}",
-        data: {order_status_input:status}
-       },
-      });
-     }
-
-     $('#order_status_input').change(function(){
-      var status = $('#order_status_input').val();
-
-      $('#order_table').DataTable().destroy();
-
-      fetch_data(status);
-     });
-
+    $(document).ready(function() {
+      $('.li-pesanan').addClass('active');
     });
-  </script> -->
+  </script>
 @endsection

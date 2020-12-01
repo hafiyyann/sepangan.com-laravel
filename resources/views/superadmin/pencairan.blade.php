@@ -1,4 +1,4 @@
-@extends('layouts.adminTempat.app')
+@extends('layouts.superadmin.app')
 
 @section('header')
   <title>Pencairan Dana</title>
@@ -51,5 +51,9 @@
       toastr.options.progressBar = true;
       toastr.success("{{ Session::get('success') }}", "Sukses", {timeOut: 5000});
     @endif
+
+    $(document).ready(function() {
+      $('.li-pencairan').addClass('active');
+    });
   </script>
 @endsection

@@ -17,16 +17,19 @@ class CreateWitdrawalsTable extends Migration
             $table->bigIncrements('id');
             $table->dateTime('tanggal_pengajuan');
             $table->decimal('kredit',16,0);
-            $table->dateTime('tanggal_pencairan');
+            $table->dateTime('tanggal_pencairan')->nullable();
             $table->string('status');
-            $table->string('bukti');
-            $table->unsignedBigInteger('admin_id');
+            $table->string('bank');
+            $table->string('nomor_rekening');
+            $table->string('atas_nama');
+            $table->string('bukti')->nullable();
+            $table->unsignedBigInteger('admin_id')->nullable();
             $table->unsignedBigInteger('mitra_id');
         });
 
         Schema::table('withdrawals', function(Blueprint $table) {
             $table->foreign('admin_id')->references('id')->on('users');
-            $table->foreign('mitra_id')->references('id')->on('users');
+            $table->foreign('mitra_id')->references('id')->on('tempat');
         });
     }
 

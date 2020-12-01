@@ -27,7 +27,7 @@ class withdrawalController extends Controller
     public function submit_withdrawal_form(Request $request){
       $tempat = tempat::where('user_id',Auth()->user()->id)->first();
 
-      if($tempat->saldo >= $request->kredit){
+      if($request->input_kredit <= $tempat->saldo){
         $withdrawal_data = new withdrawals;
         $withdrawal_data->tanggal_pengajuan = Carbon::now();
         $withdrawal_data->kredit = $request->input_kredit;
@@ -43,7 +43,7 @@ class withdrawalController extends Controller
 
         return redirect('/mitra/withdrawal')->with('success','Pengajuan pencairan dana anda sedang diproses. Terima Kasih');
       } else {
-        return view('adminTempat.formPencairan')->with('fail','Saldo anda tidak mencukupi!');
+        return redirect('/mitra/withdrawal')->with('fail','Saldo anda tidak mencukupi!');
       }
 
     }

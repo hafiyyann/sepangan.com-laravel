@@ -64,13 +64,6 @@
 
 @section('footer')
   <script>
-    @if(Session::has('fail'))
-      toastr.options.progressBar = true;
-      toastr.error("{{ Session::get('fail') }}", "Gagal", {timeOut: 5000});
-    @endif
-  </script>
-
-  <script>
     $(document).ready(function() {
        $("#submit_button").click(function() {
            $("#withdrawal_form").submit();

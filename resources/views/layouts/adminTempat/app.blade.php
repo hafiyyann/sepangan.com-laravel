@@ -108,44 +108,24 @@
         <!-- MENU SIDEBAR-->
         <aside class="menu-sidebar d-none d-lg-block">
             <div class="logo">
-                <a href="#">
-                    <img src="{{ url('images/icon/logo.png') }}" alt="Cool Admin" />
-                </a>
+                <h3 class="text-white">Sepangan.com</h3>
             </div>
             <div class="menu-sidebar__content js-scrollbar1">
                 <nav class="navbar-sidebar">
                     <ul class="list-unstyled navbar__list">
-                        <li class="has-sub">
-                            <a class="js-arrow" href="#">
-                                <i class="fas fa-tachometer-alt"></i>Dashboard</a>
-                            <ul class="list-unstyled navbar__sub-list js-sub-list">
-                                <li>
-                                    <a href="#">Dashboard 1</a>
-                                </li>
-                                <li>
-                                    <a href="#">Dashboard 2</a>
-                                </li>
-                                <li>
-                                    <a href="#">Dashboard 3</a>
-                                </li>
-                                <li>
-                                    <a href="#">Dashboard 4</a>
-                                </li>
-                            </ul>
+                        <li class="li-dashboard">
+                            <a href="{{ url('/mitra/dashboard')}}">
+                                <i class="fas fa-chart-bar"></i>Dashboard</a>
                         </li>
-                        <li>
+                        <li class="li-lapangan">
                             <a href="{{ url('/mitra/lapangan')}}">
                                 <i class="fas fa-chart-bar"></i>Daftar Lapangan</a>
                         </li>
-                        <li>
+                        <li class="li-pesanan">
                             <a href="{{ url('/mitra/Orders')}}">
                                 <i class="fas fa-chart-bar"></i>Daftar Pesanan</a>
                         </li>
-                        <li>
-                            <a href="table.html">
-                                <i class="fas fa-comment-alt"></i>Chat</a>
-                        </li>
-                        <li>
+                        <li class="li-pencairan">
                             <a href="{{ url('/mitra/withdrawal') }}">
                                 <i class="fas fa-chart-bar"></i>Pencairan</a>
                         </li>
@@ -317,13 +297,13 @@
 
     <!-- additional jquery here -->
     @yield('footer')
-    <script>
+    <!-- <script>
       $('.navbar__list li').click(function() {
         console.log('Clicked');
         $('.navbar__list li.active').removeClass('active');
         $(this).addClass('active');
       });
-    </script>
+    </script> -->
 </body>
 
 </html>

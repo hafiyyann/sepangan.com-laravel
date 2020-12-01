@@ -66,5 +66,9 @@
       toastr.options.progressBar = true;
       toastr.success("{{ Session::get('success') }}", "Sukses", {timeOut: 5000});
     @endif
+
+    $(document).ready(function() {
+      $('.li-pesanan').addClass('active');
+    });
   </script>
 @endsection

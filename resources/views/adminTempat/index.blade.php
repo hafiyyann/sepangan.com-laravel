@@ -26,3 +26,11 @@
   </div>
 </div>
 @endsection
+
+@section('footer')
+ <script>
+   $(document).ready(function() {
+     $('.li-dashboard').addClass('active');
+   });
+ </script>
+@endsection
