@@ -1580,7 +1580,7 @@ section {
     left: 0;
     top: 0;
     bottom: 0;
-    background: linear-gradient(180deg, #ffb700, #fcde83);
+    background: linear-gradient(180deg,#FFB64D,#ffcb80);
     overflow-y: auto;
 }
 

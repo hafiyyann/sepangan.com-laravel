@@ -120,7 +120,7 @@
         </div>
       </div>
       <div class="col-md-4">
-        <form class="" action="/pencarian/{{$data_lapangan->id}}/detail/pembayaran" method="post">
+        <form class="" action="/pencarian/{{$data_lapangan->id}}/detail/pembayaran" method="post" id="order-form">
           @csrf
           <div class="row no-gutters mb-3">
             <div class="col-12 bg-white shadow rounded p-5">
@@ -146,7 +146,7 @@
                 <label for="harga_perjam" class="col-form-label col-sm-8"><b>Total Pembayaran</b></label>
                 <input type="text" readonly class="form-control-plaintext col-sm-4 text-right" name="nominal" id="harga_perjam" value="{{$nominal}}">
               </div>
-              <button type="submit" class="btn btn-warning text-white col-sm-12">Lanjut ke pembayaran</button>
+              <button type="submit" class="btn btn-warning text-white col-sm-12" id="btn-submit">Lanjut ke pembayaran</button>
             </div>
           </div>
         </form>
@@ -157,6 +157,21 @@
 
 @section('footer')
   <script>
+    $('#btn-submit').click(function(e){
+      e.preventDefault();
+      swal({
+          title: "Apakah anda yakin?",
+          text: "Anda akan melakukan pemesanan lapangan",
+          icon: "warning",
+          buttons: true,
+          dangerMode: true,
+      })
+      .then((isConfirm) => {
+        if (isConfirm) {
+          $("#order-form").submit();
+        }
+      });
+    });
     @if(Session::has('fail'))
       toastr.options.progressBar = true;
       toastr.error("{{ Session::get('fail') }}", "Gagal", {timeOut: 5000});

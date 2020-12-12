@@ -59,4 +59,11 @@ class profilController extends Controller
         return redirect('/admin/profil')->with('fail','Password lama salah. Silahkan coba kembali');
       }
     }
+
+    public function status_change_mitra(User $User, Request $request){
+      $tempat = tempat::where('user_id',$User->id)->first();
+      $tempat->status = $request->status;
+      $tempat->update();
+      return redirect('/mitra/profil')->with('success','Status berhasil dirubah');
+    }
 }

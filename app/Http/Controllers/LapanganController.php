@@ -57,7 +57,8 @@ class LapanganController extends Controller
           'jenis_olahraga' => 'required',
           'jenis_lapangan' => 'required',
           'sewa' => 'required|max:7',
-          'gambar' => 'required'
+          'gambar' => 'required',
+          'status' => 'required'
         ]);
 
         if($request->hasFile('gambar')){
@@ -74,6 +75,7 @@ class LapanganController extends Controller
         $lapangan->jenis_lapangan = $request->jenis_lapangan;
         $lapangan->sewa = $request->sewa;
         $lapangan->gambar = $request->file('gambar')->getClientOriginalName();
+        $lapangan->status = $request->status;
         $lapangan->tempat_id = $tempat->id;
         $lapangan->save();
 

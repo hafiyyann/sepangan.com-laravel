@@ -34,6 +34,11 @@
         <h5 class="mb-2">Harga Sewa</h5>
         <p class="bg-primary p-3 rounded shadow-sm text-white">Rp. {{ $data_lapangan->sewa }}</p>
       </div>
+      <div class="col-sm-12 my-3">
+        <h5 class="mb-2">Status</h5>
+        @if( $data_lapangan->status == 1)<p class="bg-primary p-3 rounded shadow-sm text-white">Aktif</p>@endif
+        @if( $data_lapangan->status == 0)<p class="bg-primary p-3 rounded shadow-sm text-white">Tidak Aktif</p>@endif
+      </div>
     </div>
 
     <div class="row no-gutters mt-3 justify-content-end">

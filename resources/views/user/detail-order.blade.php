@@ -68,91 +68,49 @@
             <h5>Status Pemesanan</h5>
             <div class="row no-gutters text-center text-white">
               @if($order->status == 'dibuat')
-                <div class="col-sm-3 col-12 p-3 bg-warning" style="border-radius: 10px 0 0 10px;">
+                <div class="col-sm-4 col-12 p-3 bg-warning" style="border-radius: 10px 0 0 10px;">
                   <h5 class="mb-0">Pesanan Dibuat</h5>
                 </div>
-                <div class="col-sm-3 col-12 p-3 bg-secondary">
+                <div class="col-sm-4 col-12 p-3 bg-secondary">
                   <h5 class="mb-0">Dibayar</h5>
                 </div>
-                <div class="col-sm-3 col-12 p-3 bg-secondary">
-                  <h5 class="mb-0">Dikonfirmasi</h5>
-                </div>
-                <div class="col-sm-3 col-12 p-3 bg-secondary" style="border-radius: 0 10px 10px 0;">
+                <div class="col-sm-4 col-12 p-3 bg-secondary" style="border-radius: 0 10px 10px 0;">
                   <h5 class="mb-0">Selesai</h5>
                 </div>
               @endif
 
               @if($order->status == 'dibayar')
-                <div class="col-sm-3 col-12 p-3 bg-warning" style="border-radius: 10px 0 0 10px;">
+                <div class="col-sm-4 col-12 p-3 bg-warning" style="border-radius: 10px 0 0 10px;">
                   <h5 class="mb-0">Pesanan Dibuat</h5>
                 </div>
-                <div class="col-sm-3 col-12 p-3 bg-warning">
+                <div class="col-sm-4 col-12 p-3 bg-warning">
                   <h5 class="mb-0">Dibayar</h5>
                 </div>
-                <div class="col-sm-3 col-12 p-3 bg-secondary">
-                  <h5 class="mb-0">Dikonfirmasi</h5>
-                </div>
-                <div class="col-sm-3 col-12 p-3 bg-secondary" style="border-radius: 0 10px 10px 0;">
-                  <h5 class="mb-0">Selesai</h5>
-                </div>
-              @endif
-
-              @if($order->status == 'dikonfrimasi')
-                <div class="col-sm-3 col-12 p-3 bg-warning" style="border-radius: 10px 0 0 10px;">
-                  <h5 class="mb-0">Pesanan Dibuat</h5>
-                </div>
-                <div class="col-sm-3 col-12 p-3 bg-warning">
-                  <h5 class="mb-0">Dibayar</h5>
-                </div>
-                <div class="col-sm-3 col-12 p-3 bg-warning">
-                  <h5 class="mb-0">Dikonfirmasi</h5>
-                </div>
-                <div class="col-sm-3 col-12 p-3 bg-secondary" style="border-radius: 0 10px 10px 0;">
-                  <h5 class="mb-0">Selesai</h5>
-                </div>
-              @endif
-
-              @if($order->status == 'ditolak')
-                <div class="col-sm-3 col-12 p-3 bg-warning" style="border-radius: 10px 0 0 10px;">
-                  <h5 class="mb-0">Pesanan Dibuat</h5>
-                </div>
-                <div class="col-sm-3 col-12 p-3 bg-warning">
-                  <h5 class="mb-0">Dibayar</h5>
-                </div>
-                <div class="col-sm-3 col-12 p-3 bg-danger">
-                  <h5 class="mb-0">Ditolak</h5>
-                </div>
-                <div class="col-sm-3 col-12 p-3 bg-secondary" style="border-radius: 0 10px 10px 0;">
+                <div class="col-sm-4 col-12 p-3 bg-secondary" style="border-radius: 0 10px 10px 0;">
                   <h5 class="mb-0">Selesai</h5>
                 </div>
               @endif
 
               @if($order->status == 'expired')
-                <div class="col-sm-3 col-12 p-3 bg-warning" style="border-radius: 10px 0 0 10px;">
+                <div class="col-sm-4 col-12 p-3 bg-warning" style="border-radius: 10px 0 0 10px;">
                   <h5 class="mb-0">Pesanan Dibuat</h5>
                 </div>
-                <div class="col-sm-3 col-12 p-3 bg-danger">
+                <div class="col-sm-4 col-12 p-3 bg-danger">
                   <h5 class="mb-0">Expired</h5>
                 </div>
-                <div class="col-sm-3 col-12 p-3 bg-secondary">
-                  <h5 class="mb-0">Ditolak</h5>
-                </div>
-                <div class="col-sm-3 col-12 p-3 bg-secondary" style="border-radius: 0 10px 10px 0;">
+                <div class="col-sm-4 col-12 p-3 bg-secondary" style="border-radius: 0 10px 10px 0;">
                   <h5 class="mb-0">Selesai</h5>
                 </div>
               @endif
 
               @if($order->status == 'selesai')
-                <div class="col-sm-3 col-12 p-3 bg-warning" style="border-radius: 10px 0 0 10px;">
+                <div class="col-sm-4 col-12 p-3 bg-warning" style="border-radius: 10px 0 0 10px;">
                   <h5 class="mb-0">Pesanan Dibuat</h5>
                 </div>
-                <div class="col-sm-3 col-12 p-3 bg-warning">
+                <div class="col-sm-4 col-12 p-3 bg-warning">
                   <h5 class="mb-0">Dibayar</h5>
                 </div>
-                <div class="col-sm-3 col-12 p-3 bg-warning">
-                  <h5 class="mb-0">Dikonfirmasi</h5>
-                </div>
-                <div class="col-sm-3 col-12 p-3 bg-success" style="border-radius: 0 10px 10px 0;">
+                <div class="col-sm-4 col-12 p-3 bg-success" style="border-radius: 0 10px 10px 0;">
                   <h5 class="mb-0">Selesai</h5>
                 </div>
               @endif

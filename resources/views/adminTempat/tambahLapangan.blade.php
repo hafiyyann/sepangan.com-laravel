@@ -64,6 +64,17 @@
           <div class="invalid-feedback">{{ $message }}</div>
         @enderror
       </div>
+      <div class="form-group">
+        <label for="status">Status Lapangan</label>
+        <select name="status" class="form-control @error('status') is-invalid @enderror" id="status">
+          <option hidden selected value>Pilih Status Lapangan</option>
+          <option value="1">Aktif</option>
+          <option value="0">Tidak Aktif</option>
+        </select>
+        @error('status')
+          <div class="invalid-feedback">{{ $message }}</div>
+        @enderror
+      </div>
       <button type="submit" class="btn btn-primary float-right">Tambah</button>
     </form>
   </div>

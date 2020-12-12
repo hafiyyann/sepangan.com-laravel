@@ -8,6 +8,7 @@ use \App\Lapangan;
 use \App\User;
 use \App\payment;
 use \App\Article;
+use \App\OfflineOrder;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
@@ -59,16 +60,18 @@ class userController extends Controller
       //looking for orders
       $booked_orders = order::whereRaw('orders.tanggalPemesanan = "'.$date.'" and ((orders.start <= "'.$start_time.'" and orders.end >= "'.$end_time.'") or (orders.start < "'.$start_time.'" and orders.end >= "'.$end_time.'") or ("'.$start_time.'" <= orders.start AND "'.$end_time.'" >= orders.end) or (orders.start BETWEEN "'.$start_time.'" and "'.$end_time.'") or (orders.end BETWEEN "'.$start_time.'" and "'.$end_time.'"))')->where('status','!=','expired')->pluck('lapangan_id');
 
+      $booked_offline_orders = OfflineOrder::whereRaw('offlineorders.tanggalPemesanan = "'.$date.'" and ((offlineorders.start <= "'.$start_time.'" and offlineorders.end >= "'.$end_time.'") or (offlineorders.start < "'.$start_time.'" and offlineorders.end >= "'.$end_time.'") or ("'.$start_time.'" <= offlineorders.start AND "'.$end_time.'" >= offlineorders.end) or (offlineorders.start BETWEEN "'.$start_time.'" and "'.$end_time.'") or (offlineorders.end BETWEEN "'.$start_time.'" and "'.$end_time.'"))')->pluck('lapangan_id');
+
       //looking for available place id
-      $available_place_id = Lapangan::whereNotIn('id',$booked_orders)->pluck('tempat_id');
+      $available_place_id = Lapangan::whereNotIn('id',$booked_orders)->WhereNotIn('id',$booked_offline_orders)->pluck('tempat_id');
 
       //looking for available field where id not in orders
-      $available_field = Lapangan::whereNotIn('id',$booked_orders)->where('jenis_olahraga',$sport_type)->pluck('id');
+      $available_field = Lapangan::whereNotIn('id',$booked_orders)->WhereNotIn('id',$booked_offline_orders)->where('jenis_olahraga',$sport_type)->where('status',1)->pluck('id');
 
       //get model tempat where id in available place id
-      $tempat = tempat::whereIn('id',$available_place_id)->get();
+      $tempat = tempat::whereIn('id',$available_place_id)->where('status',1)->get();
 
-      return view('user.result',compact('tempat','available_field','date'));
+      return view('user.result',compact('tempat','available_field','date','start_time','end_time'));
     }
 
     public function resultDetail(Lapangan $Lapangan){

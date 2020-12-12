@@ -105,7 +105,7 @@
                 </div>
                 <div class="form-group col-md-12">
                   <label for="input_tanggal">Tanggal</label>
-                  <input class="form-control @error('tanggal') is-invalid @enderror" type="date" name="tanggal">
+                  <input class="date form-control @error('tanggal') is-invalid @enderror"  type="date" id="dateControl" name="tanggal">
                   @error('tanggal')
                     <div class="invalid-feedback">{{ $message }}</div>
                   @enderror
@@ -113,22 +113,8 @@
                 <div class="form-group col-md-12">
                   <label for="start">Jam Mulai</label>
                   <select name="start" class="form-control @error('start') is-invalid @enderror" id="start">
-                    <option hidden selected value>Jam Mulai</option>
-                    <option>09:00</option>
-                    <option>10:00</option>
-                    <option>11:00</option>
-                    <option>12:00</option>
-                    <option>13:00</option>
-                    <option>14:00</option>
-                    <option>15:00</option>
-                    <option>16:00</option>
-                    <option>17:00</option>
-                    <option>18:00</option>
-                    <option>19:00</option>
-                    <option>20:00</option>
-                    <option>21:00</option>
-                    <option>22:00</option>
-                    <option>23:00</option>
+                    <option hidden selected value>Pilih Jam Mulai</option>
+
                   </select>
                   @error('start')
                     <div class="invalid-feedback">{{ $message }}</div>
@@ -137,22 +123,8 @@
                 <div class="form-group col-md-12">
                   <label for="end">Jam Selesai</label>
                   <select name="end" class="form-control @error('start') is-invalid @enderror" id="end">
-                    <option hidden selected value>Jam Mulai</option>
-                    <option>09:00</option>
-                    <option>10:00</option>
-                    <option>11:00</option>
-                    <option>12:00</option>
-                    <option>13:00</option>
-                    <option>14:00</option>
-                    <option>15:00</option>
-                    <option>16:00</option>
-                    <option>17:00</option>
-                    <option>18:00</option>
-                    <option>19:00</option>
-                    <option>20:00</option>
-                    <option>21:00</option>
-                    <option>22:00</option>
-                    <option>23:00</option>
+                    <option hidden selected value>Pilih Jam Selesai</option>
+                    
                   </select>
                   @error('end')
                     <div class="invalid-feedback">{{ $message }}</div>
@@ -297,6 +269,77 @@
           items: 4,
           nav: true,
           dots: true,
+        });
+
+        var dateToday = new Date();
+
+        var month = dateToday.getMonth() + 1;
+        var day = dateToday.getDate();
+        var year = dateToday.getFullYear();
+
+        if(month < 10)
+          month = '0' + month.toString();
+
+        if(day < 10)
+          day = '0' + day.toString();
+
+        var maxDate = year + '-' + month + '-' + day;
+
+        $('#dateControl').attr('min', maxDate);
+
+        $('#dateControl').on('change',function() {
+          var SelectedDate = new Date($('#dateControl').val());
+
+          var SelectedDay = SelectedDate.getDate();
+          var SelectedMonth = SelectedDate.getMonth()+1;
+          var SelectedYear = SelectedDate.getFullYear();
+
+          if(SelectedMonth < 10){
+            SelectedMonth = '0' + SelectedMonth.toString();
+          }
+
+          if(SelectedDay < 10){
+            SelectedDay = '0' + SelectedDay.toString();
+          }
+
+          var SelectedDateNew = SelectedYear + '-' + SelectedMonth + '-' + SelectedDay;
+
+          $('#start').find('option').remove();
+          $('#end').find('option').remove();
+          $('#start').append('<option hidden selected value>Pilih Jam Mulai</option>');
+          $('#end').append('<option hidden selected value>Pilih Jam Selesai</option>');
+
+          if(SelectedDateNew == maxDate){
+            var formatted = dateToday.getHours();
+
+            if (formatted < 9) {
+              formatted = 8;
+            }
+
+            for (i = formatted+1; i <= 22; i++) {
+              if (i < 10) {
+                var x = '0' + i;
+                $('#start').append('<option>'+x+':00'+'</option>');
+              } else {
+                $('#start').append('<option>'+i+':00'+'</option>');
+              }
+
+              $('#end').append('<option>'+(i+1)+':00'+'</option>');
+            }
+          }
+
+          if(SelectedDateNew !== maxDate){
+            for (i = 9; i <= 22; i++){
+              if (i < 10) {
+                var x = '0' + i;
+                $('#start').append('<option>'+x+':00'+'</option>');
+              } else {
+                $('#start').append('<option>'+i+':00'+'</option>');
+              }
+
+              $('#end').append('<option>'+(i+1)+':00'+'</option>');
+            }
+          }
         });
       });
   </script>

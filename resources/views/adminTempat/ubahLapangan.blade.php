@@ -63,6 +63,16 @@
         <label for="gambar_lapangan">Gambar Lapangan</label>
         <input type="file" class="form-control-file" name="gambar" id="gambar">
       </div>
+      <div class="form-group">
+        <label for="status">Status Lapangan</label>
+        <select name="status" class="form-control @error('status') is-invalid @enderror" id="status">
+          <option value="1" @if($data_lapangan->status == 1) selected @endif>Aktif</option>
+          <option value="0" @if($data_lapangan->status == 0) selected @endif>Tidak Aktif</option>
+        </select>
+        @error('status')
+          <div class="invalid-feedback">{{ $message }}</div>
+        @enderror
+      </div>
       <a class="btn btn-danger" href="/mitra/lapangan/{{$data_lapangan->id}}/lihat">Batal</a>
       <button type="submit" name="button" class="btn btn-primary float-right">Simpan</button>
     </form>

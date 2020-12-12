@@ -40,15 +40,20 @@ Route::group(['middleware' => ['auth','checkRole:admin_tempat']], function(){
   Route::get('/mitra/lapangan/{Lapangan}/ubah', 'LapanganController@edit');
   Route::post('/mitra/lapangan/{Lapangan}/update', 'LapanganController@update');
   Route::get('/mitra/lapangan/{Lapangan}/hapus', 'LapanganController@destroy');
-  Route::get('/mitra/Orders','OrderController@index_mitra');
-  Route::get('/mitra/Orders/{order}/lihat','OrderController@show_order_detail_mitra');
-  Route::post('/mitra/Orders/{order}/Ubah-Status','OrderController@order_status_change_confirmed');
+  Route::get('/mitra/Orders/Online','OrderController@index_mitra_online');
+  Route::get('/mitra/Orders/Online/{order}/lihat','OrderController@show_order_detail_mitra');
+  Route::get('/mitra/Orders/Online/{order}/Selesai','OrderController@order_status_done');
   Route::get('/mitra/withdrawal','withdrawalController@index');
   Route::get('/mitra/withdrawal/form','withdrawalController@show_withdrawal_form');
   Route::post('/mitra/withdrawal/form','withdrawalController@submit_withdrawal_form');
   Route::get('/mitra/withdrawal/{withdrawals}/detail','withdrawalController@show_detail_mitra');
   Route::get('/mitra/profil','profilController@show_profile_mitra');
   Route::post('mitra/{User}/ubah-password','profilController@password_change_mitra');
+  Route::post('mitra/{User}/ubah-status','profilController@status_change_mitra');
+  Route::get('mitra/Orders/Offline/tambah','OrderController@create');
+  Route::get('mitra/Orders/Offline/','OrderController@index_mitra_offline');
+  Route::post('mitra/Orders/Offline/tambah','OrderController@store');
+  Route::get('/mitra/Orders/Offline/{OfflineOrder}/lihat','OrderController@show_offline_order_detail_mitra');
 });
 
 Route::group(['middleware' => ['auth','checkRole:superadmin']], function(){

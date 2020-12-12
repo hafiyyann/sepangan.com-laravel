@@ -11,7 +11,8 @@
       <div class="col-sm-9">
         <div class="row">
           <div class="col-sm-12 col-12 mb-2">
-            <h1>Daftar Order</h1>
+            <h1 class="mb-2">Daftar Order Offline</h1>
+            <a href="/mitra/Orders/Offline/tambah" class="btn btn-warning text-white shadow-sm">+ Tambah Pesanan</a>
           </div>
         </div>
       </div>
@@ -32,7 +33,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                  @foreach($orders as $order)
+                  @foreach($OfflineOrders as $order)
                     @foreach($fields as $field)
                       @if($order->lapangan_id == $field->id)
                         <tr>
@@ -41,13 +42,10 @@
                             <td class="align-middle text-center">{{ $order->start}}</td>
                             <td class="align-middle text-center">{{ $order->end}}</td>
                             <td class="align-middle text-center">{{ $field->nama }}</td>
-                            <td class="align-middle text-center text-white">
-                              @if( $order->status == 'dibayar' )<span class="bg-warning p-2" style="border-radius: 1.5em; font-size: 0.7em;">Dibayar</span>@endif
-                              @if( $order->status == 'dikonfrimasi' )<span class="bg-warning p-2" style="border-radius: 1.5em; font-size: 0.7em;">Dikonfirmasi</span>@endif
-                              @if( $order->status == 'ditolak' )<span class="bg-warning p-2" style="border-radius: 1.5em; font-size: 0.7em;">Ditolak</span>@endif
-                              @if( $order->status == 'selesai' )<span class="bg-success p-2" style="border-radius: 1.5em; font-size: 0.7em;">Selesai</span>@endif
+                            <td class="align-middle text-center">
+                              {{ $order->status }}
                             </td>
-                            <td class="text-center"> <a href="/mitra/Orders/{{$order->id}}/lihat" class="btn btn-primary">Lihat</a> </td>
+                            <td class="text-center"> <a href="/mitra/Orders/Offline/{{$order->id}}/lihat" class="btn btn-primary">Lihat</a> </td>
                         </tr>
                       @endif
                     @endforeach

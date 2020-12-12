@@ -49,20 +49,20 @@
   <!-- main content -->
   <div class="container mt-3">
     <h1 class="page-title">Temukan Lapangan Anda</h1>
-    <form class="sewa-section shadow" action="/pencarian" method="post">
-      @csrf
-      <div class="row">
-        <div class="form-group col-md-8">
-          <label for="input_tanggal">Tanggal</label>
-          <input class="form-control" type="date" name="" value="{{$date}}">
-        </div>
-        <div class="form-group col-md-4">
-          <label for="input_jam">Jam</label>
-          <input class="form-control" type="time" name="" value="">
-        </div>
+    <div class="bg-white row shadow-sm no-gutters px-3 py-2 rounded">
+      <div class="col-8">
+        <span><b>Tanggal</b></span>
+        <span>{{ $date }}</span>
       </div>
-      <button type="submit" class="btn btn-primary col-md-12">Cari</button>
-    </form>
+      <div class="col-2 text-right">
+        <span><b>Jam Mulai</b></span>
+        <span>{{ $start_time }}</span>
+      </div>
+      <div class="col-2 text-right">
+        <span><b>Jam Selesai</b></span>
+        <span>{{ $end_time }}</span>
+      </div>
+    </div>
   </div>
   <div class="container mb-5">
     @foreach($tempat as $data_tempat)

@@ -1,4 +1,4 @@
-@extends('layouts.adminTempat.app')
+@extends('layouts.superadmin.app')
 
 @section('header')
   <title>Tambah Lapangan</title>
@@ -33,7 +33,7 @@
       </div>
       <div class="form-group">
         <label for="isi">Isi Artikel</label>
-        <textarea class="form-control" id="isi" rows="20" name="content"></textarea>
+        <textarea class="form-control" id="isi" name="content"></textarea>
       </div>
       <button type="submit" class="btn btn-primary float-right">Tambah</button>
     </form>
@@ -43,7 +43,7 @@
 @section('footer')
   <script>
       ClassicEditor
-          .create( document.querySelector( '#isi' ) )
+          .create( document.querySelector( '#isi' ))
           .catch( error => {
               console.error( error );
           } );

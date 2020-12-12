@@ -8,6 +8,8 @@ class dashboardController extends Controller
 {
     //
     public function show_dashboard_mitra(){
+      
+
       return view('adminTempat.index');
     }
 

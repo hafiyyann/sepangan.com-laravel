@@ -18,7 +18,7 @@
       <div class="col-sm-12 text-center">
         <span>Saldo anda saat ini</span>
         <h1 style="font-size: 100px;" class="p-4">Rp {{ $saldo }}</h1>
-        <a href="/mitra/withdrawal/form" class="btn btn-primary">+ Ajukan Pencairan</a>
+        <a href="/mitra/withdrawal/form" class="btn btn-warning shadow-sm text-white">+ Ajukan Pencairan</a>
       </div>
     </div>
 

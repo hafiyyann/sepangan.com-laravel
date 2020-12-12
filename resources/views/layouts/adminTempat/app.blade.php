@@ -121,9 +121,23 @@
                             <a href="{{ url('/mitra/lapangan')}}">
                                 <i class="fas fa-chart-bar"></i>Daftar Lapangan</a>
                         </li>
-                        <li class="li-pesanan">
-                            <a href="{{ url('/mitra/Orders')}}">
-                                <i class="fas fa-chart-bar"></i>Daftar Pesanan</a>
+                        <li class="has-sub li-pesanan">
+                            <a class="js-arrow" href="#">
+                                <i class="fas fa-chart-bar"></i>Daftar Pesanan
+                                <span class="arrow">
+                                    <i class="fas fa-angle-down"></i>
+                                </span>
+                            </a>
+                            <ul class="list-unstyled navbar__sub-list js-sub-list">
+                                <li>
+                                    <a href="/mitra/Orders/Offline">
+                                        <i class="fas fa-chart-bar"></i>Pesanan Offline</a>
+                                </li>
+                                <li>
+                                    <a href="/mitra/Orders/Online">
+                                        <i class="fas fa-chart-bar"></i>Pesanan Online</a>
+                                </li>
+                            </ul>
                         </li>
                         <li class="li-pencairan">
                             <a href="{{ url('/mitra/withdrawal') }}">

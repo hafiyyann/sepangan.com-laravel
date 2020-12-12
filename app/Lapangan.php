@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Lapangan extends Model
 {
     //
-    protected $fillable = ['nama','jenis_olahraga','jenis_lapangan','sewa','gambar', 'tempat_id'];
+    protected $fillable = ['nama','jenis_olahraga','jenis_lapangan','sewa','gambar','status','tempat_id'];
     protected $table = 'lapangan';
 
     public function tempat(){

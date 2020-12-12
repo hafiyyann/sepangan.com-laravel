@@ -8,6 +8,7 @@ use App\Lapangan;
 use App\tempat;
 use App\User;
 use App\payment;
+use App\OfflineOrder;
 use Illuminate\Support\Str;
 
 class OrderController extends Controller
@@ -17,7 +18,7 @@ class OrderController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index_mitra()
+    public function index_mitra_online()
     {
         //
         $tempat_id = tempat::where('user_id',auth()->user()->id)->pluck('id')->first();
@@ -26,7 +27,19 @@ class OrderController extends Controller
         $fields = Lapangan::where('tempat_id',$tempat_id)->get();
         $orders = order::whereIn('lapangan_id',$Lapangan_id)->where('status','dibayar')->orWhere('status','dikonfrimasi')->orWhere('status','selesai')->get();
         // return($Lapangan);
-        return view('adminTempat.daftarOrder', compact('fields','orders'));
+        return view('adminTempat.daftarOrder_online', compact('fields','orders'));
+    }
+
+    public function index_mitra_offline()
+    {
+        //
+        $tempat_id = tempat::where('user_id',auth()->user()->id)->pluck('id')->first();
+        $Lapangan_id = Lapangan::where('tempat_id',$tempat_id)->pluck('id');
+
+        $fields = Lapangan::where('tempat_id',$tempat_id)->get();
+        $OfflineOrders = OfflineOrder::whereIn('lapangan_id',$Lapangan_id)->get();
+        // return($Lapangan);
+        return view('adminTempat.daftarOrder_offline', compact('fields','OfflineOrders'));
     }
 
     public function index_superadmin(){
@@ -58,6 +71,9 @@ class OrderController extends Controller
     public function create()
     {
         //
+        $tempat_id = tempat::where('user_id',auth()->user()->id)->pluck('id')->first();
+        $fields = Lapangan::where('tempat_id',$tempat_id)->get();
+        return view('adminTempat.tambahOrder', compact('fields'));
     }
 
     /**
@@ -69,6 +85,29 @@ class OrderController extends Controller
     public function store(Request $request)
     {
         //
+        $request->validate([
+          'nama'          => 'required',
+          'nomorTelepon'  => 'required',
+          'lapangan'      => 'required',
+          'tanggal'       => 'required',
+          'start'         => 'required',
+          'end'           => 'required',
+          'sewa'          => 'required'
+        ]);
+
+        $OfflineOrder = new OfflineOrder;
+        $OfflineOrder->namaPemesan = $request->nama;
+        $OfflineOrder->nomorTelepon = $request->nomorTelepon;
+        $OfflineOrder->lapangan_id = $request->lapangan;
+        $OfflineOrder->tanggalPemesanan = $request->tanggal;
+        $OfflineOrder->start = $request->start;
+        $OfflineOrder->end = $request->end;
+        $OfflineOrder->catatan = $request->catatan;
+        $OfflineOrder->totalSewa = $request->sewa;
+        $OfflineOrder->status = 'dibuat';
+        $OfflineOrder->save();
+
+        return redirect('/mitra/Orders/Offline')->with('success','Order berhasil ditambahkan');
     }
 
     /**
@@ -84,6 +123,14 @@ class OrderController extends Controller
         $data_pembayaran = payment::where('id',$order->payments_id)->first();
 
         return view('adminTempat.detailOrder')->with(compact('order','data_pemesan','data_lapangan','data_pembayaran'));
+    }
+
+    public function show_offline_order_detail_mitra(OfflineOrder $OfflineOrder)
+    {
+        $data_lapangan = Lapangan::where('id',$OfflineOrder->lapangan_id)->first();
+        $order = $OfflineOrder;
+
+        return view('adminTempat.detailOrder_offline')->with(compact('order','data_lapangan'));
     }
 
     public function show_order_detail_admin(order $order)
@@ -110,17 +157,17 @@ class OrderController extends Controller
         return redirect('/admin/Orders');
     }
 
-    public function order_status_change_confirmed(Request $request, order $order){
+    public function order_status_done(order $order){
       $order_status = Str::lower($request->status);
 
-      if ($order_status = 'diterima') {
-        $order->status = 'dikonfrimasi';
-      } elseif ($order_status = 'ditolak') {
-        $order->status = 'ditolak';
+      if ($order_status = 'dibayar') {
+        $order->status = 'selesai';
+        $order->update();
+        return redirect('/mitra/Orders/Online')->with('success','status berhasil dirubah!');
+      } else {
+        return redirect('/mitra/Orders/Online')->with('fail','status gagal dirubah!');
       }
 
-      $order->update();
-      return redirect('/mitra/Orders');
     }
 
     /**

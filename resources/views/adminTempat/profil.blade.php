@@ -24,6 +24,7 @@
           <span>{{$tempat->alamat}}</span>
           <div class="d-block mt-3">
             <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#change_password_modal">Ubah Password</button>
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#change_place_status">Ubah Status</button>
           </div>
         </div>
       </div>
@@ -39,6 +40,11 @@
         <div class="col-sm-12 my-3">
           <h5 class="mb-2">Email</h5>
           <p class="bg-primary p-3 rounded shadow-sm text-white">{{$user->email}}</p>
+        </div>
+        <div class="col-sm-12 my-3">
+          <h5 class="mb-2">Status</h5>
+          @if($tempat->status == 0)<p class="bg-primary p-3 rounded shadow-sm text-white">Libur</p>@endif
+          @if($tempat->status == 1)<p class="bg-primary p-3 rounded shadow-sm text-white">Buka</p>@endif
         </div>
       </div>
     </div>
@@ -89,6 +95,38 @@
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
         <button type="button" id="submitBtn" class="btn btn-primary">Ubah</button>
       </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="change_place_status" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Ubah Password</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <form action="/mitra/{{$user->id}}/ubah-status" method="post" id="change_place_status">
+        <div class="modal-body">
+            @csrf
+            <div class="form-group">
+              <label for="status">Status Tempat</label>
+              <select name="status" class="form-control @error('status') is-invalid @enderror" id="status">
+                <option value="1" @if($tempat->status == 1) selected @endif>Buka</option>
+                <option value="0" @if($tempat->status == 0) selected @endif>Libur</option>
+              </select>
+              @error('status')
+                <div class="invalid-feedback">{{ $message }}</div>
+              @enderror
+            </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
+          <button type="submit" id="submitBtn2" class="btn btn-primary">Ubah</button>
+        </div>
+      </form>
     </div>
   </div>
 </div>

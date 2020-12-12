@@ -14,7 +14,7 @@
             <h1>Daftar Lapangan</h1>
           </div>
           <div class="col-sm-12 col-12 mb-2">
-            <a href="{{ url('/mitra/lapangan/tambah') }}" class="btn btn-primary">+ Tambah Lapangan</a>
+            <a href="{{ url('/mitra/lapangan/tambah') }}" class="btn btn-warning text-white shadow-sm">+ Tambah Lapangan</a>
           </div>
         </div>
       </div>
@@ -27,6 +27,7 @@
                     <tr>
                         <th class="text-center">ID</th>
                         <th>Nama lapangan</th>
+                        <th class="text-center">Status</th>
                         <th class="text-center">Aksi</th>
                     </tr>
                 </thead>
@@ -35,6 +36,8 @@
                     <tr>
                         <td class="align-middle text-center">{{ $lapangan-> id }}</td>
                         <td class="align-middle">{{ $lapangan-> nama }}</td>
+                        @if($lapangan->status == 1)<td class="align-middle text-center">Aktif</td>@endif
+                        @if($lapangan->status == 0)<td class="align-middle text-center">Tidak Aktif</td>@endif
                         <td class="text-center"> <a href="/mitra/lapangan/{{$lapangan->id}}/lihat" class="btn btn-primary">Lihat</a> </td>
                     </tr>
                   @endforeach
