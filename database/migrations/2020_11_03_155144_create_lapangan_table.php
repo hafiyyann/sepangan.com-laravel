@@ -20,6 +20,7 @@ class CreateLapanganTable extends Migration
             $table->string('jenis_lapangan');
             $table->decimal('sewa',7,2);
             $table->string('gambar');
+            $table->boolean('status');
             $table->unsignedBigInteger('tempat_id');
             $table->timestamps();
         });
