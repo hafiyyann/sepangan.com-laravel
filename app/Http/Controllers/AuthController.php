@@ -116,11 +116,12 @@ class AuthController extends Controller
       $user->is_verified = 0;
       $user->save();
 
-      tempat::create([
-        'namaTempat'  => $request['namaTempat'],
-        'alamat'      => $request['alamat'],
-        'user_id'     => $user->id
-      ]);
+      $tempat = new tempat;
+      $tempat->namaTempat = $request->namaTempat;
+      $tempat->alamat = $request->alamat;
+      $tempat->user_id = $user->id;
+      $tempat->status = 1;
+      $tempat->save();
 
       if($request->email != null){
         MailController::sendSignupEmail($user->name, $user->email, $user->verification_code);
