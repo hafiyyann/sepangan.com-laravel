@@ -72,7 +72,7 @@ class OrderController extends Controller
     {
         //
         $tempat_id = tempat::where('user_id',auth()->user()->id)->pluck('id')->first();
-        $fields = Lapangan::where('tempat_id',$tempat_id)->get();
+        $fields = Lapangan::where('tempat_id',$tempat_id)->where('status',1)->get();
         return view('adminTempat.tambahOrder', compact('fields'));
     }
 
@@ -86,8 +86,8 @@ class OrderController extends Controller
     {
         //
         $request->validate([
-          'nama'          => 'required',
-          'nomorTelepon'  => 'required',
+          'nama'          => 'required|max:30',
+          'nomorTelepon'  => 'required|numeric|size:12|size:13',
           'lapangan'      => 'required',
           'tanggal'       => 'required',
           'start'         => 'required',
@@ -95,19 +95,33 @@ class OrderController extends Controller
           'sewa'          => 'required'
         ]);
 
-        $OfflineOrder = new OfflineOrder;
-        $OfflineOrder->namaPemesan = $request->nama;
-        $OfflineOrder->nomorTelepon = $request->nomorTelepon;
-        $OfflineOrder->lapangan_id = $request->lapangan;
-        $OfflineOrder->tanggalPemesanan = $request->tanggal;
-        $OfflineOrder->start = $request->start;
-        $OfflineOrder->end = $request->end;
-        $OfflineOrder->catatan = $request->catatan;
-        $OfflineOrder->totalSewa = $request->sewa;
-        $OfflineOrder->status = 'dibuat';
-        $OfflineOrder->save();
+        $start_time = $request->start;
+        $end_time = $request->end;
+        $date = $request->tanggal;
 
-        return redirect('/mitra/Orders/Offline')->with('success','Order berhasil ditambahkan');
+        //looking for orders
+        $booked_orders = order::whereRaw('orders.tanggalPemesanan = "'.$date.'" and ((orders.start <= "'.$start_time.'" and orders.end >= "'.$end_time.'") or (orders.start < "'.$start_time.'" and orders.end >= "'.$end_time.'") or ("'.$start_time.'" <= orders.start AND "'.$end_time.'" >= orders.end) or (orders.start BETWEEN "'.$start_time.'" and "'.$end_time.'") or (orders.end BETWEEN "'.$start_time.'" and "'.$end_time.'"))')->where('status','!=','expired')->pluck('lapangan_id');
+
+        $booked_offline_orders = OfflineOrder::whereRaw('offlineorders.tanggalPemesanan = "'.$date.'" and ((offlineorders.start <= "'.$start_time.'" and offlineorders.end >= "'.$end_time.'") or (offlineorders.start < "'.$start_time.'" and offlineorders.end >= "'.$end_time.'") or ("'.$start_time.'" <= offlineorders.start AND "'.$end_time.'" >= offlineorders.end) or (offlineorders.start BETWEEN "'.$start_time.'" and "'.$end_time.'") or (offlineorders.end BETWEEN "'.$start_time.'" and "'.$end_time.'"))')->pluck('lapangan_id');
+
+        if ($booked_orders === null && $booked_offline_orders === null) {
+          $OfflineOrder = new OfflineOrder;
+          $OfflineOrder->namaPemesan = $request->nama;
+          $OfflineOrder->nomorTelepon = $request->nomorTelepon;
+          $OfflineOrder->lapangan_id = $request->lapangan;
+          $OfflineOrder->tanggalPemesanan = $request->tanggal;
+          $OfflineOrder->start = $request->start;
+          $OfflineOrder->end = $request->end;
+          $OfflineOrder->catatan = $request->catatan;
+          $OfflineOrder->totalSewa = $request->sewa;
+          $OfflineOrder->status = 'dibuat';
+          $OfflineOrder->save();
+
+          return redirect('/mitra/Orders/Offline')->with('success','Order berhasil ditambahkan');
+        } else {
+          return back()->withInput()->with('fail','Lapangan tidak tersedia!');
+        }
+
     }
 
     /**
@@ -158,16 +172,30 @@ class OrderController extends Controller
     }
 
     public function order_status_done(order $order){
-      $order_status = Str::lower($request->status);
 
-      if ($order_status = 'dibayar') {
+      if ($order->status = 'dibayar') {
+        //update status
         $order->status = 'selesai';
         $order->update();
+
+        //update saldo tempat
+        $tempat = tempat::where('user_id',Auth()->user()->id)->first();
+        $payments = payment::where('id', $order->payments_id)->first();
+        $tempat->saldo = $tempat->saldo + ($payments->nominal - 2000);
+        $tempat->update();
+
         return redirect('/mitra/Orders/Online')->with('success','status berhasil dirubah!');
       } else {
         return redirect('/mitra/Orders/Online')->with('fail','status gagal dirubah!');
       }
 
+    }
+
+    public function offline_order_status_done(OfflineOrder $OfflineOrder){
+      $OfflineOrder->status = 'selesai';
+      $OfflineOrder->update();
+
+      return redirect('/mitra/Orders/Offline')->with('success','status berhasil dirubah!');
     }
 
     /**

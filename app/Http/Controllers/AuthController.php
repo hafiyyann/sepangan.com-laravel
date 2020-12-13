@@ -39,10 +39,10 @@ class AuthController extends Controller
     public function register(Request $request)
     {
         $request->validate([
-          'name'=> 'required',
+          'name'=> 'required|max:30',
           'email' => 'required',
           'password' => 'required|min:8|max:12',
-          'nomorTelepon' => 'required|max:13',
+          'nomorTelepon' => 'required|numeric|digits:13',
           'password2' => 'required|same:password'
         ]);
 
@@ -92,11 +92,11 @@ class AuthController extends Controller
 
     public function registerMitra(Request $request){
       $request->validate([
-        'name'          => 'required',
-        'namaTempat'    => 'required',
+        'name'          => 'required|max:30',
+        'namaTempat'    => 'required|max:30',
         'email'         => 'required',
-        'alamat'        => 'required',
-        'nomorTelepon'  => 'required|max:13',
+        'alamat'        => 'required|max:50',
+        'nomorTelepon'  => 'required|numeric|digits:13',
         'password'      => 'required|min:8|max:12',
         'password2'     => 'required|same:password'
       ]);

@@ -175,7 +175,7 @@ class userController extends Controller
       $id_tempat = lapangan::where('id',$data_order->lapangan_id)->value('tempat_id');
       $data_tempat = tempat::where('id',$id_tempat)->first();
       $payment_data = payment::where('id',$data_order->payments_id)->first();
-      $data_tempat->saldo = ($data_tempat->saldo) + ($payment_data->nominal*99/100);
+      $data_tempat->saldo = ($data_tempat->saldo) + ($payment_data->nominal - 2000);
       $data_tempat->update();
 
       return redirect('/riwayat');

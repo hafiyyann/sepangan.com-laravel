@@ -54,6 +54,7 @@ Route::group(['middleware' => ['auth','checkRole:admin_tempat']], function(){
   Route::get('mitra/Orders/Offline/','OrderController@index_mitra_offline');
   Route::post('mitra/Orders/Offline/tambah','OrderController@store');
   Route::get('/mitra/Orders/Offline/{OfflineOrder}/lihat','OrderController@show_offline_order_detail_mitra');
+  Route::get('/mitra/Orders/Offline/{OfflineOrder}/Selesai','OrderController@offline_order_status_done');
 });
 
 Route::group(['middleware' => ['auth','checkRole:superadmin']], function(){

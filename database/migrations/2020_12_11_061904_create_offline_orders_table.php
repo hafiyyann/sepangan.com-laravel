@@ -21,8 +21,8 @@ class CreateOfflineOrdersTable extends Migration
             $table->time('end');
             $table->string('status');
             $table->string('catatan')->nullable();
-            $table->string('namaPemesan');
-            $table->string('nomorTelepon');
+            $table->string('namaPemesan',30);
+            $table->string('nomorTelepon',13);
             $table->decimal('totalSewa',7,0);
             $table->unsignedBigInteger('lapangan_id');
             $table->foreign('lapangan_id')->references('id')->on('lapangan');

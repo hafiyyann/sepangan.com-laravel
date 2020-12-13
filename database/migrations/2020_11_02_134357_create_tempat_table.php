@@ -15,8 +15,8 @@ class CreateTempatTable extends Migration
     {
         Schema::create('tempat', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('namaTempat');
-            $table->string('alamat');
+            $table->string('namaTempat',30);
+            $table->string('alamat',50);
             $table->boolean('status');
             $table->decimal('saldo',12,0)->default(0);
             $table->unsignedBigInteger('user_id');

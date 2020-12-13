@@ -114,7 +114,6 @@
                   <label for="start">Jam Mulai</label>
                   <select name="start" class="form-control @error('start') is-invalid @enderror" id="start">
                     <option hidden selected value>Pilih Jam Mulai</option>
-
                   </select>
                   @error('start')
                     <div class="invalid-feedback">{{ $message }}</div>
@@ -124,7 +123,6 @@
                   <label for="end">Jam Selesai</label>
                   <select name="end" class="form-control @error('start') is-invalid @enderror" id="end">
                     <option hidden selected value>Pilih Jam Selesai</option>
-                    
                   </select>
                   @error('end')
                     <div class="invalid-feedback">{{ $message }}</div>
@@ -332,15 +330,32 @@
             for (i = 9; i <= 22; i++){
               if (i < 10) {
                 var x = '0' + i;
-                $('#start').append('<option>'+x+':00'+'</option>');
+                $('#start').append('<option value="'+i+'">'+x+':00'+'</option>');
               } else {
-                $('#start').append('<option>'+i+':00'+'</option>');
+                $('#start').append('<option value="'+i+'">'+i+':00'+'</option>');
+              }
+            }
+
+            $('#start').on('change',function(){
+              $('#end').find('option').remove();
+              $('#end').append('<option hidden selected value>Pilih Jam Selesai</option>');
+
+              var selectedStart = $("#start :selected").val();
+
+              for (i = selectedStart ; i < 23; i++) {
+                var y = Number(i)+1;
+
+                $('#end').append('<option value="'+y+'">'+y+':00'+'</option>');
               }
 
-              $('#end').append('<option>'+(i+1)+':00'+'</option>');
-            }
+            })
           }
         });
       });
+
+      @if(Session::has('fail'))
+        toastr.options.progressBar = true;
+        toastr.error("{{ Session::get('fail') }}", "Gagal", {timeOut: 5000});
+      @endif
   </script>
 @endsection
