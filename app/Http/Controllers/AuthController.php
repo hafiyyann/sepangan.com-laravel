@@ -42,7 +42,7 @@ class AuthController extends Controller
           'name'=> 'required|max:30',
           'email' => 'required',
           'password' => 'required|min:8|max:12',
-          'nomorTelepon' => 'required|numeric|digits:13',
+          'nomorTelepon' => 'required|numeric|digits_between:12,13',
           'password2' => 'required|same:password'
         ]);
 
@@ -96,7 +96,7 @@ class AuthController extends Controller
         'namaTempat'    => 'required|max:30',
         'email'         => 'required',
         'alamat'        => 'required|max:50',
-        'nomorTelepon'  => 'required|numeric|digits:13',
+        'nomorTelepon'  => 'required|numeric|digits_between:12,13',
         'password'      => 'required|min:8|max:12',
         'password2'     => 'required|same:password'
       ]);

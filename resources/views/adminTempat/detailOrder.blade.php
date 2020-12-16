@@ -63,10 +63,11 @@
       @if($order->status == 'dibayar')<span class="col-sm-6">Dibayar</span>@endif
       @if($order->status == 'selesai')<span class="col-sm-6">Selesai</span>@endif
     </div>
-    @if(\Carbon\Carbon::now()->format('Y-m-d') == $order->tanggalPemesanan && \Carbon\Carbon::now()->setTimezone('Asia/Jakarta')->format('H:i:s') >= $order->end && $order->status != 'selesai')
-      <a href="/mitra/Orders/Online/{{$order->id}}/Selesai" class="btn btn-success ml-auto mt-3 mr-3">Selesai</a>
-    @endif
     <a href="/mitra/Orders/Online" class="btn btn-secondary mt-3">Batal</a>
+    @if(\Carbon\Carbon::now()->format('Y-m-d') >= $order->tanggalPemesanan && \Carbon\Carbon::now()->setTimezone('Asia/Jakarta')->format('H:i:s') >= $order->end && $order->status != 'selesai')
+      <a href="/mitra/Orders/Online/{{$order->id}}/Selesai" class="btn btn-success mt-3 float-right">Selesai</a>
+    @endif
+
 
 @endsection
 

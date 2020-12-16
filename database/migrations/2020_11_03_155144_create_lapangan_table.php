@@ -18,7 +18,7 @@ class CreateLapanganTable extends Migration
             $table->string('nama');
             $table->string('jenis_olahraga');
             $table->string('jenis_lapangan');
-            $table->decimal('sewa',7,2);
+            $table->decimal('sewa',7,0);
             $table->string('gambar');
             $table->boolean('status');
             $table->unsignedBigInteger('tempat_id');

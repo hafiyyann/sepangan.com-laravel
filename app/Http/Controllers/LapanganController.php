@@ -59,6 +59,7 @@ class LapanganController extends Controller
           'sewa' => 'required|max:7',
           'gambar' => 'required',
           'status' => 'required'
+          'sewa' => 'required|numeric|digits_between:1,7'
         ]);
 
         if($request->hasFile('gambar')){
@@ -137,7 +138,7 @@ class LapanganController extends Controller
           'nama'=> 'required',
           'jenis_olahraga' => 'required',
           'jenis_lapangan' => 'required',
-          'sewa' => 'required|max:5'
+          'sewa' => 'required|numeric|digits_between:1,7'
         ]);
 
         $data_lapangan = $Lapangan;

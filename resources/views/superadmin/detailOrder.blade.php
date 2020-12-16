@@ -73,11 +73,12 @@
         </div>
         <div class="form-group row">
           <label for="payment_status" class="col-sm-6">Status Pembayaran</label>
-          @if($data_pembayaran->status == 'belum dibayar')
+          @if($data_pembayaran->status == 'belum dibayar' || $data_pembayaran->status == 'verifikasi gagal')
             <select name="payment_status" class="form-control @error('start') is-invalid @enderror col-sm-6" id="payment_status">
               <option hidden selected value>Pilih Status</option>
               <option >Dibayar</option>
               <option @if($data_pembayaran->status == 'belum dibayar') selected @endif>Belum Dibayar</option>
+              <option @if($data_pembayaran->status == 'verifikasi gagal') selected @endif>Verifikasi Gagal</option>
             </select>
           @endif
           @if($data_pembayaran->status == 'dibayar')

@@ -192,7 +192,7 @@
         <div class="row no-gutters">
           <div class="col-12 bg-white shadow rounded p-5">
             <h5>Pembayaran</h5>
-            <div class="row no-gutters align-items-center">
+            <div class="row no-gutters align-items-center py-2">
               <div class="col-sm-6 col-6">
                 <span>Status pembayaran</span>
               </div>
@@ -205,6 +205,11 @@
                   <span class="bg-danger px-3 text-white py-2 rounded-pill d-inline-block">Belum Dibayar</span>
                 @endif
 
+                @if($payment->status == 'verifikasi gagal')
+                  <span class="bg-danger px-3 text-white py-2 rounded-pill d-inline-block">Verifikasi Gagal</span>
+                  <small class="text-danger font-italic">Silahkan cek kembali bukti pembayaran anda!</small>
+                @endif
+
                 @if($payment->status == 'expired')
                   <span class="bg-danger px-3 text-white py-2 rounded-pill d-inline-block">Expired</span>
                 @endif
@@ -212,38 +217,64 @@
               </div>
             </div>
             <div class="row no-gutters py-2">
-              <form class="row col-sm-12 align-items-center" action="/riwayat/{{$order->id}}/detail/upload" method="post" enctype="multipart/form-data">
-                @csrf
-                @if($payment->bukti == null && $payment->status == 'expired')
-                  <span>Mohon maaf. Pembayaran anda sudah kadaluarsa!</span>
-                @endif
-                @if($payment->bukti == null && $payment->status == 'belum dibayar')
-                  <div class="col-sm-6">
-                    Upload Bukti Pembayaran
+              @if($payment->bukti != null)
+                <div class="col-md-12">
+                  <div class="row no-gutters align-items-center">
+                    <span class="col-md-6">Bukti Pembayaran</span>
+                    <span class="col-md-3">{{$payment->bukti}}</span>
+                    <a href="#" id="modal-bukti" class="btn btn-primary col-sm-2">
+                      <img id="imageresource" src="{{ asset('/images/'.$payment->bukti)}}" hidden>
+                      Lihat
+                    </a>
                   </div>
-                  <div class="custom-file col-sm-4">
-                    <input type="file" class="custom-file-input" id="customFile" name="bukti">
-                    <label class="custom-file-label" for="customFile">Choose file</label>
-                  </div>
-                  <button type="submit" class="btn btn-primary">Upload</button>
-                @endif
-                @if($payment->bukti != null)
-                  <div class="col-md-12">
-                    <div class="row">
-                      <span class="col-md-6">Bukti Pembayaran</span>
-                      <span class="col-md-6">{{$payment->bukti}}</span>
-                    </div>
-                  </div>
-                @endif
-              </form>
+                </div>
+              @endif
             </div>
+            @if($payment->status != 'dibayar')
+              <div class="row no-gutters py-2">
+                <form class="row col-sm-12 align-items-center" action="/riwayat/{{$order->id}}/detail/upload" method="post" enctype="multipart/form-data">
+                  @csrf
+                  @if($payment->status == 'expired')
+                    <span>Mohon maaf. Pembayaran anda sudah kadaluarsa!</span>
+                  @endif
+                  @if($payment->bukti == null || $payment->status == 'belum dibayar' || $payment->status == 'verifikasi gagal')
+                    <div class="col-sm-12">
+                      <div class="row align-items-center">
+                        <div class="col-sm-6 mr-3">
+                          Upload Bukti Pembayaran
+                        </div>
+                        <div class="custom-file col-sm-4 mr-2">
+                          <input type="file" class="custom-file-input" id="customFile" name="bukti">
+                          <label class="custom-file-label" for="customFile">Choose file</label>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Upload</button>
+                      </div>
+                    </div>
+                  @endif
+                </form>
+              </div>
+            @endif
           </div>
         </div>
       </div>
       <a href="/riwayat" class="btn btn-warning ml-3 mt-3 text-white">Kembali</a>
-      @if(\Carbon\Carbon::now()->format('Y-m-d') == $order->tanggalPemesanan && \Carbon\Carbon::now()->setTimezone('Asia/Jakarta')->format('H:i:s') >= $order->end && $order->status != 'selesai')
+      @if(\Carbon\Carbon::now()->format('Y-m-d') >= $order->tanggalPemesanan && \Carbon\Carbon::now()->setTimezone('Asia/Jakarta')->format('H:i:s') >= $order->end && $order->status != 'selesai')
         <a href="/riwayat/{{$order->id}}/selesai" class="btn btn-success ml-auto mt-3 mr-3">Selesai</a>
       @endif
+    </div>
+  </div>
+
+  <!-- bootstrap modal image -->
+  <div class="modal fade" id="imagemodal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        </div>
+        <div class="modal-body">
+          <img src="" id="imagepreview" class="img-fluid">
+        </div>
+      </div>
     </div>
   </div>
 @endsection
@@ -253,6 +284,11 @@
       $(".custom-file-input").on("change", function() {
         var fileName = $(this).val().split("\\").pop();
         $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
+      });
+
+      $("#modal-bukti").on("click", function() {
+        $('#imagepreview').attr('src', $('#imageresource').attr('src')); // here asign the image to the modal when the user click the enlarge link
+        $('#imagemodal').modal('show'); // imagemodal is the id attribute assigned to the bootstrap modal, then i use the show function
       });
   </script>
 @endsection

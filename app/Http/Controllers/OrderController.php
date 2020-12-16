@@ -160,7 +160,6 @@ class OrderController extends Controller
         // return($request->all());
         $payment = payment::where('id', $order->payments_id)->first();
         $payment->status = Str::lower($request->payment_status);
-        // return($payment->status);
         $payment->update();
 
         if ($payment->status == 'dibayar') {

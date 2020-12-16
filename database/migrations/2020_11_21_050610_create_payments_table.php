@@ -15,7 +15,7 @@ class CreatePaymentsTable extends Migration
     {
         Schema::create('payments', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->decimal('nominal',7,2);
+            $table->decimal('nominal',7,0);
             $table->string('bukti')->nullable();
             $table->string('status');
             $table->dateTime('payment_due');
