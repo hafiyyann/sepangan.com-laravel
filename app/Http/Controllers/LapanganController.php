@@ -52,15 +52,40 @@ class LapanganController extends Controller
     {
         // dd($request->all());
 
-        $request->validate([
-          'nama'=> 'required',
-          'jenis_olahraga' => 'required',
-          'jenis_lapangan' => 'required',
-          'sewa' => 'required|max:7',
-          'gambar' => 'required',
-          'status' => 'required'
-          'sewa' => 'required|numeric|digits_between:1,7'
+        // $request->validate([
+        //   'nama'            => 'required',
+        //   'jenis_olahraga'  => 'required',
+        //   'jenis_lapangan'  => 'required',
+        //   'sewa'            => 'required|max:7',
+        //   'gambar'          => 'required|image',
+        //   'status'          => 'required',
+        //   'sewa'            => 'required|numeric|digits_between:1,7',
+        //   'gambar.image'    => 'File harus berbentuk gambar',
+        // ]);
+
+        $this->validate($request, [
+          'nama'            => 'required',
+          'jenis_olahraga'  => 'required',
+          'jenis_lapangan'  => 'required',
+          'gambar'          => 'image|required|max:2000',
+          'status'          => 'required',
+          'sewa'            => 'required|numeric|digits_between:1,7',
+        ],[
+          'gambar.max'               => "Ukuran file tidak boleh lebih dari 2MB",
+          'nama.required'            => "Nama tidak boleh kosong!",
+          'jenis_olahraga.required'  => "Silahkan pilih jenis olahraga terlebih dahulu!",
+          'jenis_lapangan.required'  => "Silahkan pilih jenis lapangan terlebih dahulu!",
+          'sewa.required'            => "Harga Sewa Lapangan tidak boleh kosong!",
+          'gambar.required'          => "Silahkan upload file gambar lapangan terlebih dahulu!",
+          'gambar.image'             => "Tipe file tidak valid. Anda harus mengunggah file berbentuk gambar!",
+          'sewa.digits_between'      => "Harga yang anda masukkan tidak boleh melebihi 7 digit!",
+          'sewa.numeric'             => "Harga harus berupa angka!",
+          'status.required'          => "Silahkan pilih status lapangan terlebih dahulu!"
         ]);
+
+        $messages = [
+            'nama.required' => 'Dicoba',
+        ];
 
         if($request->hasFile('gambar')){
           $request->file('gambar')->move('images/',$request->file('gambar')->getClientOriginalName());
@@ -134,16 +159,38 @@ class LapanganController extends Controller
      */
     public function update(Request $request, Lapangan $Lapangan)
     {
-        $request->validate([
-          'nama'=> 'required',
-          'jenis_olahraga' => 'required',
-          'jenis_lapangan' => 'required',
-          'sewa' => 'required|numeric|digits_between:1,7'
-        ]);
+      $this->validate($request, [
+        'nama'            => 'required',
+        'jenis_olahraga'  => 'required',
+        'jenis_lapangan'  => 'required',
+        'status'          => 'required',
+        'sewa'            => 'required|numeric|digits_between:1,7',
+      ],[
+        'nama.required'            => "Nama tidak boleh kosong!",
+        'jenis_olahraga.required'  => "Silahkan pilih jenis olahraga terlebih dahulu!",
+        'jenis_lapangan.required'  => "Silahkan pilih jenis lapangan terlebih dahulu!",
+        'sewa.required'            => "Harga Sewa Lapangan tidak boleh kosong!",
+        'sewa.digits_between'      => "Harga yang anda masukkan tidak boleh melebihi 7 digit!",
+        'sewa.numeric'             => "Harga harus berupa angka!",
+        'status.required'          => "Silahkan pilih status lapangan terlebih dahulu!"
+      ]);
 
         $data_lapangan = $Lapangan;
-        $data_lapangan->update($request->all());
+        $data_lapangan->nama = $request->nama;
+        $data_lapangan->jenis_olahraga = $request->jenis_olahraga;
+        $data_lapangan->jenis_lapangan = $request->jenis_lapangan;
+        $data_lapangan->sewa = $request->sewa;
+        $data_lapangan->status = $request->status;
+        $data_lapangan->update();
+        
         if($request->hasFile('gambar')){
+          $this->validate($request,[
+            'gambar'          => 'image|required|max:2000',
+          ],[
+            'gambar.required'          => "Silahkan upload file gambar lapangan terlebih dahulu!",
+            'gambar.image'             => "Tipe file tidak valid. Anda harus mengunggah file berbentuk gambar!",
+            'gambar.max'               => "Ukuran file tidak boleh lebih dari 2MB"
+          ]);
           $request->file('gambar')->move('images/',$request->file('gambar')->getClientOriginalName());
           $data_lapangan->gambar = $request->file('gambar')->getClientOriginalName();
           $data_lapangan->update();

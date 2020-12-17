@@ -85,14 +85,27 @@ class OrderController extends Controller
     public function store(Request $request)
     {
         //
-        $request->validate([
+        $this->validate($request, [
           'nama'          => 'required|max:30',
-          'nomorTelepon'  => 'required|numeric|size:12|size:13',
+          'nomorTelepon'  => 'required|numeric|digits_between:12,13',
           'lapangan'      => 'required',
           'tanggal'       => 'required',
           'start'         => 'required',
           'end'           => 'required',
-          'sewa'          => 'required'
+          'sewa'          => 'required|numeric|digits_between:1,9'
+        ],[
+          'nama.max'                    => "Nama pemesan tidak boleh melebihi 30 karakter!",
+          'nama.required'               => "Nama tidak boleh kosong!",
+          'nomorTelepon.required'       => "Nomor Telepon tidak boleh kosong!",
+          'nomorTelepon.numeric'        => "Nomor telepon harus berupa angka!",
+          'nomorTelepon.digits_between' => "Nomor telepon harus terdiri dari 12-13 angka!",
+          'lapangan.required'           => "Silahkan pilih lapangan terlebih dahulu!",
+          'tanggal.required'            => "Silahkan pilih tanggal terlebih dahulu!",
+          'start.required'              => "Silahkan pilih jam mulai terlebih dahulu!",
+          'end.required'                => "Silahkan pilih jam selesai terlebih dahulu!",
+          'sewa.required'               => "Total harga sewa tidak boleh kosong!",
+          'sewa.numeric'                => "Total harga sewa harus berupa angka!",
+          'sewa.digits_between'         => "Total harga sewa maksimal terdiri dari 9 digit",
         ]);
 
         $start_time = $request->start;

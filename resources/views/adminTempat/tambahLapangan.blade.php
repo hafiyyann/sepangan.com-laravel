@@ -58,10 +58,10 @@
         @enderror
       </div>
       <div class="form-group">
-        <label for="gambar_lapangan">Gambar Lapangan</label>
+        <label for="gambar">Gambar Lapangan</label>
         <input type="file" class="form-control-file @error('gambar') is-invalid @enderror" name="gambar" id="gambar">
         @error('gambar')
-          <div class="invalid-feedback">{{ $message }}</div>
+          <small class="text-danger">{{$message }}</small>
         @enderror
       </div>
       <div class="form-group">

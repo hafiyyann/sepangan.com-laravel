@@ -62,6 +62,9 @@
       <div class="form-group">
         <label for="gambar_lapangan">Gambar Lapangan</label>
         <input type="file" class="form-control-file" name="gambar" id="gambar">
+        @error('gambar')
+          <small class="text-danger">{{$message }}</small>
+        @enderror
       </div>
       <div class="form-group">
         <label for="status">Status Lapangan</label>
