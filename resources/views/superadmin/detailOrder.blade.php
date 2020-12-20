@@ -105,7 +105,9 @@
       </div>
     </div>
 
-    <button type="button" id="status-submit-btn" class="btn btn-primary mt-3">Simpan</button>
+    @if($data_pembayaran->status === 'belum dibayar' || $data_pembayaran->status === 'verifikasi gagal')
+      <button type="button" id="status-submit-btn" class="btn btn-primary mt-3">Simpan</button>
+    @endif
     <a href="/admin/Orders" class="btn btn-secondary mt-3">Batal</a>
 
 @endsection

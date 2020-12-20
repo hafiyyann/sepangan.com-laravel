@@ -30,7 +30,7 @@ class Kernel extends ConsoleKernel
         // $schedule->command('inspire')
         //          ->hourly();
         $schedule->call(function(){
-          payment::where('payment_due','<',Carbon::now()->setTimezone('Asia/Jakarta'))->where('status','belum dibayar')->update(['status' => 'expired']);
+          payment::where('payment_due','<',Carbon::now()->setTimezone('Asia/Jakarta'))->where('status','belum dibayar')->orWhere('status','verifikasi gagal')->update(['status' => 'expired']);
           $payments_id = payment::where('status','expired')->pluck('id');
           order::whereIn('payments_id',$payments_id)->update(['status' => 'expired']);
         })->everyMinute();
