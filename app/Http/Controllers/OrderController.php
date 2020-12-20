@@ -117,7 +117,8 @@ class OrderController extends Controller
 
         $booked_offline_orders = OfflineOrder::whereRaw('offlineorders.tanggalPemesanan = "'.$date.'" and ((offlineorders.start <= "'.$start_time.'" and offlineorders.end >= "'.$end_time.'") or (offlineorders.start < "'.$start_time.'" and offlineorders.end >= "'.$end_time.'") or ("'.$start_time.'" <= offlineorders.start AND "'.$end_time.'" >= offlineorders.end) or (offlineorders.start BETWEEN "'.$start_time.'" and "'.$end_time.'") or (offlineorders.end BETWEEN "'.$start_time.'" and "'.$end_time.'"))')->pluck('lapangan_id');
 
-        if ($booked_orders === null && $booked_offline_orders === null) {
+        if ($booked_orders->isEmpty() && $booked_offline_orders->isEmpty()) {
+  
           $OfflineOrder = new OfflineOrder;
           $OfflineOrder->namaPemesan = $request->nama;
           $OfflineOrder->nomorTelepon = $request->nomorTelepon;
