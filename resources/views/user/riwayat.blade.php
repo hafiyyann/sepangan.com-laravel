@@ -60,7 +60,7 @@
                   <div class="row no-gutters mt-5">
                     <div class="col-md-12 bg-white shadow" style="border-radius: 0 0 10px 10px">
                       <div class="row no-gutters bg-warning px-5 py-3 text-white align-items-center" style="border-radius: 10px 10px 0 0">
-                        <h5 class="col-sm-6 col-6 mb-0">No Order <b>{{$order->id}}</b></h5>
+                        <h5 class="col-sm-6 col-6 mb-0">No Order <b>{{'#'.str_pad($order->id + 1, 8, "0", STR_PAD_LEFT)}}</b></h5>
                         <div class="col-sm-6 col-6 text-right">
                           @if($order->status == 'dibuat')<span class="px-5 py-2 bg-success d-inline-block rounded-pill">Dibuat</span>@endif
                           @if($order->status == 'dibayar')<span class="px-5 py-2 bg-success d-inline-block rounded-pill">Dibayar</span>@endif

@@ -18,6 +18,13 @@
     <form class="bg-white p-4 rounded clearfix shadow-sm" method="post" action="/admin/Artikel/tambah" enctype="multipart/form-data">
       @csrf
       <div class="form-group">
+        <label for="gambar">Gambar</label>
+        <input type="file" class="form-control-file @error('gambar') is-invalid @enderror" name="gambar" id="gambar">
+        @error('gambar')
+          <small class="text-danger">{{$message }}</small>
+        @enderror
+      </div>
+      <div class="form-group">
         <label for="input_nama">Nama Penulis</label>
         <input type="text" name="nama" class="form-control @error('nama') is-invalid @enderror" id="input_nama" placeholder="Masukkan nama Penulis...">
         @error('nama')
@@ -34,6 +41,9 @@
       <div class="form-group">
         <label for="isi">Isi Artikel</label>
         <textarea class="form-control" id="isi" name="content"></textarea>
+        @error('content')
+          <small class="text-danger">{{$message }}</small>
+        @enderror
       </div>
       <button type="submit" class="btn btn-primary float-right">Tambah</button>
     </form>

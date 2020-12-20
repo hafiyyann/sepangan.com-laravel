@@ -58,7 +58,7 @@
                 <span>Nomor Order</span>
               </div>
               <div class="col-sm-6 py-2 px-5">
-                <span class="font-weight-bold">{{$order->id}}</span>
+                <span class="font-weight-bold">{{'#'.str_pad($order->id + 1, 8, "0", STR_PAD_LEFT)}}</span>
               </div>
             </div>
           </div>

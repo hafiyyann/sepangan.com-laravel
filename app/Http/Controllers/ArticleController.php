@@ -41,20 +41,33 @@ class ArticleController extends Controller
     {
         //
 
-        $request->validate([
+        $this->validate($request, [
           'nama' => 'required',
           'title' => 'required',
-          'content' => 'required'
+          'content' => 'required|max:10000',
+          'gambar' => 'image|required|max:10000',
+        ],[
+          'gambar.max'               => "Ukuran file tidak boleh lebih dari 10MB",
+          'nama.required'            => "Nama tidak boleh kosong!",
+          'title.required'           => "Judul Artikel tidak boleh kosong!",
+          'content.required'         => "Isi Artikel tidak boleh kosong!",
+          'content.max'              => "Isi Artikel tidak boleh melebihi 10.000 karakter!",
+          'gambar.required'          => "Silahkan upload file gambar terlebih dahulu!",
+          'gambar.image'             => "Tipe file tidak valid. Anda harus mengunggah file berbentuk gambar!",
         ]);
+
+        if($request->hasFile('gambar')){
+          $request->file('gambar')->move('images/',$request->file('gambar')->getClientOriginalName());
+        }
 
         $article = new Article;
         $article->author = $request->nama;
         $article->title = $request->title;
         $article->content = $request->content;
+        $article->gambar = $request->file('gambar')->getClientOriginalName();
         $article->save();
 
         return redirect('admin/Artikel')->with('success','Artikel Berhasil Ditambahkan!');
-
     }
 
     /**

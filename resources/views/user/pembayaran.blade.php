@@ -51,7 +51,7 @@
     <div class="row">
       <div class="col-sm-12 bg-warning rounded shadow-sm text-white px-5 py-3 mb-3">
         <h5 style="font-weight: normal">Nomor Order</h5>
-        <h3>{{$data_order->id}}</h1>
+        <h3>{{'#'.str_pad($data_order->id + 1, 8, "0", STR_PAD_LEFT)}}</h1>
       </div>
       <div class="col-sm-12 bg-white rounded shadow-sm">
         <div class="content p-5 text-center">

@@ -14,9 +14,14 @@
     </div>
 
     <div class="row no-gutters p-5 shadow-sm bg-white rounded justify-content-center">
-      <h1 class="col-8">{{ $Article->title }}</h1><br>
-      <h5 class="col-8">{{ $Article->author }}</h5><br>
-      <span class="col-8">{!! $Article->content !!}</span>
+      <h1 class="col-8">{{$Article->title}}</h1>
+      <h5 class="col-8">{{$Article->author}}</h5>
+      <div class="col-8 my-3 rounded shadow p-2 text-center">
+        <img src="{{ asset('images/'.$Article->gambar) }}" class="img-fluid">
+      </div>
+      <div class="col-8">
+        {!! $Article->content !!}
+      </div>
     </div>
     <div class="row no-gutters mt-3 justify-content-end">
       <a href="/admin/Artikel" class="btn btn-secondary mr-auto">Kembali</a>

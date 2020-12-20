@@ -83,10 +83,6 @@ class LapanganController extends Controller
           'status.required'          => "Silahkan pilih status lapangan terlebih dahulu!"
         ]);
 
-        $messages = [
-            'nama.required' => 'Dicoba',
-        ];
-
         if($request->hasFile('gambar')){
           $request->file('gambar')->move('images/',$request->file('gambar')->getClientOriginalName());
         }
@@ -182,7 +178,7 @@ class LapanganController extends Controller
         $data_lapangan->sewa = $request->sewa;
         $data_lapangan->status = $request->status;
         $data_lapangan->update();
-        
+
         if($request->hasFile('gambar')){
           $this->validate($request,[
             'gambar'          => 'image|required|max:2000',

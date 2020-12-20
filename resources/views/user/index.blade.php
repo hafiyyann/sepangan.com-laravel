@@ -220,7 +220,7 @@
               <img class="card-img-top" src="/images/TENNIS.jpeg" alt="Card image cap">
               <div class="card-body">
                 <h5 class="card-title">{{$article->title}}</h5>
-                <p class="card-text">{!! Str_limit($article->content, 100) !!}</p>
+                <!-- <p class="card-text">{!! Str_limit($article->content, 100) !!}</p> -->
                 <a href="/artikel/{{$article->id}}/lihat" class="btn btn-primary text-center">Go somewhere</a>
               </div>
             </div>
@@ -232,22 +232,38 @@
   <div class="bg-3">
     <div class="container">
       <div class="row align-items-center section-4 text-center">
-          <h1 class="col-md-12">Langkah Pemesanan</h1>
-          <div class="col-md-3">
-            <h1>1</h1>
-            <p>Pilih Tanggal dan waktu pemesanan yang anda inginkan</p>
+          <h1 class="col-md-12 class">Langkah Pemesanan</h1>
+          <div class="col-md-12">
+            <div class="row">
+              <div class="col-md-3">
+                <h1>1</h1>
+              </div>
+              <div class="col-md-3">
+                <h1>2</h1>
+              </div>
+              <div class="col-md-3">
+                <h1>3</h1>
+              </div>
+              <div class="col-md-3">
+                <h1>4</h1>
+              </div>
+            </div>
           </div>
-          <div class="col-md-3">
-            <h1>2</h1>
-            <p>Pilih Lapangan yang tersedia</p>
-          </div>
-          <div class="col-md-3">
-            <h1>3</h1>
-            <p>Lakukan pembayaran</p>
-          </div>
-          <div class="col-md-3">
-            <h1>4</h1>
-            <p>Setelah pengelola lapangan mengkofirmasi pesanan. Lapangan siap digunakan</p>
+          <div class="col-sm-12">
+            <div class="row">
+              <div class="col-md-3">
+                <p>Pilih Tanggal dan waktu pemesanan yang anda inginkan</p>
+              </div>
+              <div class="col-md-3">
+                <p>Pilih Lapangan yang tersedia</p>
+              </div>
+              <div class="col-md-3">
+                <p>Lakukan pembayaran</p>
+              </div>
+              <div class="col-md-3">
+                <p>Setelah pengelola lapangan mengkofirmasi pesanan. Lapangan siap digunakan</p>
+              </div>
+            </div>
           </div>
       </div>
     </div>
